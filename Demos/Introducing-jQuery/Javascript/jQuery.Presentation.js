@@ -1,4 +1,4 @@
-﻿/// <reference path="../Dependencies/jQuery-1.5.1-vsdoc.js" />
+﻿/// <reference path="../Dependencies/jquery-1.6.3-vsdoc.js" />
 /// <reference path="../Dependencies/jquery.mousewheel.js" />
 /// <reference path="../Dependencies/jquery.ba-hashchange.js" />
 /// <reference path="../Dependencies/jquery-ui-1.8.16.effects.min.js" />
@@ -277,6 +277,8 @@ Presentation.animations = {
 	slideVertical: { show: function (item, callback) { item.slideDown(speed, callback); }, hide: function (item, callback) { item.slideUp(speed, callback); } }
 };
 Presentation.animations.standard = Presentation.animations.slideVertical;
+
+//If jQuery UI is present, add its effects
 if ($.effects) {
 	$.each($.effects, function (name, func) {
 		Presentation.animations[name.toLowerCase()] = {
@@ -287,7 +289,7 @@ if ($.effects) {
 	Presentation.animations.standard = Presentation.animations.blind;
 }
 Presentation.getAnimation = function (item, fallback) {
-	var name = item.attr('animation');
+	var name = item.data('animation');
 	var anim;
 
 	if (name) {

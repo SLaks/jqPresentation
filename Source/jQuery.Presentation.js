@@ -289,7 +289,7 @@ if ($.effects) {
 	Presentation.animations.standard = Presentation.animations.blind;
 }
 Presentation.getAnimation = function (item, fallback) {
-	var name = item.attr('animation');
+	var name = item.data('animation');
 	var anim;
 
 	if (name) {

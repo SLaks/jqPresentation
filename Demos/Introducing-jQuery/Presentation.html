@@ -219,6 +219,9 @@
                 display: inline-block;
             }
             .GalleryTable {
+                padding: 0;
+                border-spacing: 0;
+                border-collapse: collapse;
                 width: 100%;
                 height: 100%;
             }
@@ -260,14 +263,14 @@
             <div class="Slide">
                 <h1>
                     Microsoft.com</h1>
-                <table class="FullSlide GalleryTable Item" animation="fade">
+                <table class="FullSlide GalleryTable Item" data-animation="fade">
                     <tr>
                         <td>
                             <img src="Screenshots/History/1994-Microsoft.gif" alt="Microsoft.com, ca 1994" />
                         </td>
                     </tr>
                 </table>
-                <table class="FullSlide GalleryTable Item" animation="fade">
+                <table class="FullSlide GalleryTable Item" data-animation="fade">
                     <tr>
                         <td>
                             <img src="Screenshots/History/2011-Microsoft.png" alt="Microsoft.com, ca 2011" />
@@ -318,7 +321,7 @@ if (button.addEventListener) {
                 <p class="Item">
                     By switching to jQuery, these 20 lines can be reduced to just 4!
                 </p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox AutoRun">
                         <pre class="brush: js">
 $('#hoverDemo2').hover(
@@ -334,7 +337,7 @@ $('#hoverDemo2').hover(
                 <p class="Item">
                     Using jQuery, we can also easily add additional features, such as animation:
                 </p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox AutoRun">
                         <pre class="brush: js">
 $('#hoverDemo3').hover(
@@ -352,8 +355,8 @@ $('#hoverDemo3').hover(
                 <h1>
                     Who's Using jQuery?
                 </h1>
-                <div class="Item FullSlide" animation="QuickGallery">
-                    <table border="0" cellpadding="0" cellspacing="0" class="GalleryTable">
+                <div class="Item FullSlide" data-animation="QuickGallery">
+                    <table class="GalleryTable">
                         <tr>
                             <td class="GalleryItem">
                                 <img src="Logos/Google.png" alt="Google" /></td>
@@ -384,9 +387,9 @@ $('#hoverDemo3').hover(
             <div class="Slide">
                 <h1>
                     Downloading jQuery</h1>
-                <p class="Item" animation="Drop">
+                <p class="Item" data-animation="Drop">
                     <a href="http://jquery.com" target="_blank">http://jQuery.com</a></p>
-                <img src="Screenshots/jQuery-Download.png" alt="Download(jQuery);" class="Item" animation="scale" />
+                <img src="Screenshots/jQuery-Download.png" alt="Download(jQuery);" class="Item" data-animation="scale" />
                 <p class="Item">
                     When creating your site, you should use the <a href="view-source:http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"
                         target="_blank"><b>Development</b></a> version, which is nicely formatted and
@@ -407,7 +410,7 @@ $('#hoverDemo3').hover(
                     Google graciously provides free hosted versions of jQuery (and other libraries),
                     so you can just add a <code>&lt;script></code> tag that references jQuery from Google's
                     servers without downloading anything.</p>
-                <div class="Item CodeBox Smaller" animation="slide">
+                <div class="Item CodeBox Smaller" data-animation="slide">
                     <pre class="brush: html">
 &lt;script type=&quot;text/javascript&quot; 
         src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js&quot;&gt;
@@ -432,7 +435,7 @@ $('#hoverDemo3').hover(
                 <p class="Item">
                     Unlike many other languages, Javascript treats functions as first-class values.
                     Functions can be passed around put in variables, compared, and more.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 function createMultiplier(by) {
     var inner = function(n) { return n * by; }  
@@ -448,7 +451,7 @@ alert("doubler(2) returns " + doubler(2));
                 <p class="Item">
                     Extra arguments can be retrieved from the <code>arguments</code> keyword, which
                     is an array-like object.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 function showArgs() {
     alert("I got " + arguments.length + " arguments!\n"
@@ -483,7 +486,7 @@ showArgs(1, 2, 3);
                 <p class="Item">
                     You can create your own objects by writing <code>{ }</code>, and optionally putting
                     properties between the braces.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 var emptyObject = { };
 emptyObject.state = "Not empty anymore";
@@ -507,7 +510,7 @@ alert(person.name + " is " + person.age);
                 <p class="Item">
                     If you call a function on an object, <code>this</code> will be the object that you
                     called it on.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 function whatsThis() {
     return this.name;
@@ -549,23 +552,23 @@ alert("When called on an object, this is " + myObject.whatsThis());
                     object.
                 </p>
                 <ul>
-                    <li class="Item" animation="drop"><code>jQuery("selector")</code><br />
+                    <li class="Item" data-animation="drop"><code>jQuery("selector")</code><br />
                         The most useful version of the <code>jQuery</code> function takes a CSS selector
                         as a parameter. It returns a jQuery object with all elements in the document that
                         match the selector.</li>
-                    <li class="Item" animation="drop"><code>jQuery(domElement)</code><br />
+                    <li class="Item" data-animation="drop"><code>jQuery(domElement)</code><br />
                         You can also call the <code>jQuery</code> function with a single DOM element to
                         create a jQuery object containing that element.
                         <div class="Item">This is frequently used in event handlers&mdash;writing <code>jQuery(this)</code>
                             will create a jQuery object for the element that fired the event. </div>
                     </li>
-                    <li class="Item" animation="drop"><code>jQuery(domArray)</code><br />
+                    <li class="Item" data-animation="drop"><code>jQuery(domArray)</code><br />
                         The <code>jQuery</code> function can also take an array of DOM elements, creating
                         a jQuery object containing all of the elements in the array. </li>
-                    <li class="Item" animation="drop"><code>jQuery()</code><br />
+                    <li class="Item" data-animation="drop"><code>jQuery()</code><br />
                         Calling the <code>jQuery</code> function with no parameters creates an empty jQuery
                         object with no elements inside of it. </li>
-                    <li class="Item" animation="drop"><code>jQuery("html string")</code><br />
+                    <li class="Item" data-animation="drop"><code>jQuery("html string")</code><br />
                         Finally, you can also call <code>jQuery</code> function with a string containing
                         (<i>well-formed!</i>) HTML. This will parse the HTML into a set of new DOM elements
                         and return a jQuery object containing the elements.</li>
@@ -582,7 +585,7 @@ alert("When called on an object, this is " + myObject.whatsThis());
                     the DOM tree is complete (before images finish loading).
                     <br />
                     If the DOM tree has already been loaded, the function will be executed immediately.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 jQuery(function() {
     alert("There are " + jQuery('*').length + " DOM elements!");
@@ -618,15 +621,15 @@ jQuery(function() {
                 <h1>
                     Common Selectors</h1>
                 <ul>
-                    <li class="Item" animation="drop"><code>#someId</code>
+                    <li class="Item" data-animation="drop"><code>#someId</code>
                         <div class="Item CodeBox ShrinkWrap"><code><b>&lt;div id="someId"></b>Lorem ipsum dolor
                             sit<b>&lt;/div></b></code> </div>
                     </li>
-                    <li class="Item" animation="drop"><code>tagname</code>
+                    <li class="Item" data-animation="drop"><code>tagname</code>
                         <div class="Item CodeBox ShrinkWrap"><code><b>&lt;tagname></b>Lorem ipsum dolor sit<b>&lt;/tagname></b></code>
                         </div>
                     </li>
-                    <li class="Item" animation="drop"><code>.SomeClass</code>
+                    <li class="Item" data-animation="drop"><code>.SomeClass</code>
                         <div class="Item CodeBox ShrinkWrap">
                             <pre>
 <b>&lt;div class="Header SomeClass"></b>Lorem ipsum dolor sit<b>&lt;/div></b>
@@ -634,7 +637,7 @@ consectetur adipisicing elit
 <b>&lt;div class="SomeClass"></b>sed do eiusmod<b>&lt;/div></b></pre>
                         </div>
                     </li>
-                    <li class="Item" animation="drop"><code>#someId .SomeClass</code>
+                    <li class="Item" data-animation="drop"><code>#someId .SomeClass</code>
                         <div class="Item CodeBox ShrinkWrap">
                             <pre>
 &lt;div id="someId">Lorem ipsum dolor sit&lt;/div>
@@ -678,7 +681,7 @@ consectetur adipisicing elit
                 <p class="Item">
                     These methods retrieve information about an element. They return a Javascript value
                     (typically a string or number) that tells you something useful.</p>
-                <div class="Item CodeBox ButtonPadded ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ButtonPadded ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js, gutter: false">alert($('#slide13 p').text());</pre>
                 </div>
             </div>
@@ -689,7 +692,7 @@ consectetur adipisicing elit
                     These methods modify the elements in the jQuery object. They return the jQuery object
                     that they were called on, allowing you to "chain" method calls&mdash;to call multiple
                     methods on the same object.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 $('&lt;b> Hi There! &lt;/b>')
     .appendTo("#slide14 p:first")
@@ -703,7 +706,7 @@ $('&lt;b> Hi There! &lt;/b>')
                 <p class="Item">
                     These methods create a new jQuery object containing elements based on the contents
                     of the set you called it on.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 var slide = $('#slide15');
 var items = slide.find('.Item');
@@ -730,7 +733,7 @@ alert(items.length + " items");</pre>
                     jQuery will pass two parameters to the function: the index (in the set) of the element
                     it's being called for and the current value of the property for that element.
                 </p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 var items = $('#slide16 p.Item');
 items.html(
@@ -745,7 +748,7 @@ items.html(
                 <h1>
                     Common Informative Methods</h1>
                 <ul>
-                    <li class="Item" animation="drop"><code>.is(selector)</code>
+                    <li class="Item" data-animation="drop"><code>.is(selector)</code>
                         <p class="Item">
                             The <code>is</code> method checks whether at least one element in the set matches
                             a selector.
@@ -754,18 +757,18 @@ items.html(
                             The <code>is</code> method is particularly useful with selectors like <code>:animated</code>,
                             <code>:visible</code>, or <code>:hidden</code>.
                         </p>
-                        <div class="Item CodeBox ShrinkWrap" animation="slide">
+                        <div class="Item CodeBox ShrinkWrap" data-animation="slide">
                             <pre class="brush:js, gutter: false">
 if ($(something).is(":visible"))
 </pre>
                         </div>
                     </li>
-                    <li class="Item" animation="drop"><code>.hasClass(class)</code>
+                    <li class="Item" data-animation="drop"><code>.hasClass(class)</code>
                         <p class="Item">
                             The <code>hasClass</code> method checks whether at least one element in the set
                             the given class.
                         </p>
-                        <div class="Item CodeBox ShrinkWrap" animation="slide">
+                        <div class="Item CodeBox ShrinkWrap" data-animation="slide">
                             <pre class="brush:js, gutter: false">
 if ($(something).hasClass("error"))
 </pre>
@@ -777,35 +780,35 @@ if ($(something).hasClass("error"))
                 <h1>
                     Common Properties</h1>
                 <ul>
-                    <li class="Item" animation="drop"><code>.html()</code>
+                    <li class="Item" data-animation="drop"><code>.html()</code>
                         <p class="Item">
                             The <code>html</code> property gets or sets the inner HTML of an element.
                         </p>
-                        <div class="Item CodeBox ButtonPadded ShrinkWrap Invokable" animation="slide">
+                        <div class="Item CodeBox ButtonPadded ShrinkWrap Invokable" data-animation="slide">
                             <pre class="brush:js, gutter: false">alert($('#slide21 p').html());</pre>
                         </div>
                     </li>
-                    <li class="Item" animation="drop"><code>.text()</code><p class="Item">
+                    <li class="Item" data-animation="drop"><code>.text()</code><p class="Item">
                         The <code>text</code> property gets or sets the actual text of an element; it will
                         unescape any HTML entities and will include the text of nested elements.
                     </p>
-                        <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                        <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                             <pre class="brush:js">
 var p = $('#slide21 li:contains(".text") p');
 p.text(function(index, oldText) { return oldText; });</pre>
                         </div>
-                        <p class="Item" animation="fade">
+                        <p class="Item" data-animation="fade">
                             I'm <b>bold</b> or <i>italic</i>!<br />
-                            Isn't that <strike>boring</strike>?</p>
+                            Isn't that <s>boring</s>?</p>
                     </li>
-                    <li class="Item" animation="drop"><code>.width()</code> / <code>.height()</code>
+                    <li class="Item" data-animation="drop"><code>.width()</code> / <code>.height()</code>
                         <p class="Item">
                             These properties give the inner dimensions an element, in pixels.<br />
                             Setting these properties will directly modify the CSS <code>height</code> and <code>
                                 width</code> properties.
                         </p>
                     </li>
-                    <li class="Item" animation="drop"><code>.val()</code>
+                    <li class="Item" data-animation="drop"><code>.val()</code>
                         <p class="Item">
                             The <code>val</code> property gives the current value of a form element (<code>&lt;input></code>,
                             <code>&lt;select></code>, <code>&lt;option></code>, or <code>&lt;textarea></code>).
@@ -828,23 +831,23 @@ p.text(function(index, oldText) { return oldText; });</pre>
                 <h1>
                     Keyed Properties</h1>
                 <ul>
-                    <li class="Item" animation="drop"><code>.css()</code> </li>
-                    <li class="Item" animation="drop"><code>.attr()</code></li>
+                    <li class="Item" data-animation="drop"><code>.css()</code> </li>
+                    <li class="Item" data-animation="drop"><code>.attr()</code></li>
                 </ul>
                 <p class="Item">
                     These methods take an additional parameter for the name of the property to get or
                     set.
                 </p>
-                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" data-animation="slide">
                     <pre class="brush:js, gutter: false">alert($('#slide22 .CodeBox').attr('animation'));</pre>
                 </div>
-                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" data-animation="slide">
                     <pre class="brush:js, gutter: false">$('#slide22 .CodeBox').attr('animation', 'explode');</pre>
                 </div>
                 <p class="Item">
                     These methods can also take an object of properties to set.
                 </p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 $('#slide22 p').css({
 	fontStyle: "italic",
@@ -856,24 +859,24 @@ $('#slide22 p').css({
                 <h1>
                     Common Action Methods</h1>
                 <ul>
-                    <li class="Item" animation="drop"><code>.addClass(classname)</code> / <code>.removeClass(classname)</code>
+                    <li class="Item" data-animation="drop"><code>.addClass(classname)</code> / <code>.removeClass(classname)</code>
                         <p class="Item">
                             Adds or removes CSS classes from the elements in the set.
                         </p>
-                        <div class="ShrinkWrap CodeBox Item" animation="slide">
+                        <div class="ShrinkWrap CodeBox Item" data-animation="slide">
                             <pre class="brush: js">
 $('.Active').removeClass("Active");
 $(something).addClass("Active");
 </pre>
                         </div>
                     </li>
-                    <li class="Item" animation="drop"><code>.append(stuff)</code>
+                    <li class="Item" data-animation="drop"><code>.append(stuff)</code>
                         <p class="Item">
                             Appends stuff to the end of every element in the set.&nbsp; <code>stuff</code> can
                             be a jQuery object, a DOM element, a string of HTML, or a function that generates
                             one of the above.
                         </p>
-                        <div class="ShrinkWrap CodeBox Item Invokable ButtonPadded" animation="slide">
+                        <div class="ShrinkWrap CodeBox Item Invokable ButtonPadded" data-animation="slide">
                             <pre class="brush: js, gutter: false">
 $('#slide23 p.Item').append(" &amp;#9786;");
 </pre>
@@ -887,7 +890,7 @@ $('#slide23 p.Item').append(" &amp;#9786;");
                 <p class="Item">
                     jQuery can add event handlers using the <code>.bind()</code>, which takes one or
                     more event names and a callback to handle the event.</p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox AutoRun">
                         <pre class="brush: js">
 $('#eventDemo1').bind("mousemove", function(e) { 
@@ -901,7 +904,7 @@ $('#eventDemo1').bind("mousemove", function(e) {
                 </div>
                 <p class="Item">
                     jQuery also has helper methods for common events:</p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox AutoRun">
                         <pre class="brush: js">
 $('#eventDemo2').keyup(function() { 
@@ -913,7 +916,7 @@ $('#eventDemo2').keyup(function() {
                         <input id="eventDemo2" /><br />
                         <span id="echoer"></span></div>
                 </div>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox AutoRun">
                         <pre class="brush: js">
 $('#hoverDemo4').hover(
@@ -933,7 +936,7 @@ $('#hoverDemo4').hover(
                 <p class="Item">
                     There are two common mistakes that people make when creating event handlers.
                 </p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap ButtonPadded CodeBox Invokable">
                         <pre class="brush: js, gutter: false">
 $('#eventDemo3').click(alert("Clicked!"));
@@ -949,7 +952,7 @@ $('#eventDemo3').click(alert("Clicked!"));
                     It should be written like this, passing a function expression that calls <code>alert</code>
                     to the <code>click</code> method.
                 </p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap ButtonPadded CodeBox Invokable">
                         <pre class="brush: js, gutter: false">
 $('#eventDemo4').click(function() { alert("Clicked!"); });
@@ -963,7 +966,7 @@ $('#eventDemo4').click(function() { alert("Clicked!"); });
             <div class="Slide">
                 <h1>
                     Event Pitfalls</h1>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox Invokable ButtonPadded">
                         <pre class="brush: js">
 var container = $('#buttonBox1').empty();
@@ -984,7 +987,7 @@ for (var i = 1; i &lt;= 9; i++) {
                     The callbacks are only run after the <code>for</code> loop finishes (when the user
                     clicks the buttons), when <code>i</code> is <code>10</code>.
                 </p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox Invokable ButtonPadded">
                         <pre class="brush: js">
 var container = $('#buttonBox2').empty();
@@ -1018,7 +1021,7 @@ function createButton(i) {
                     To solve this problem, jQuery supports live events, which bind handlers to all elements
                     that match a selector, no matter when they were created.
                 </p>
-                <div class="Item CodeBox ShrinkWrap AutoRun" animation="slide">
+                <div class="Item CodeBox ShrinkWrap AutoRun" data-animation="slide">
                     <pre class="brush:js">
 $('#liveBox button').live('click', function() { 
     alert("Congratulations!\nYou clicked a button!");
@@ -1029,7 +1032,7 @@ $('#liveBox button').live('click', function() {
                     After running this code, all elements that match the selector will have their <code>
                         click</code> event handled.
                 </p>
-                <div class="Item" animation="slide">
+                <div class="Item" data-animation="slide">
                     <div class="ShrinkWrap CodeBox Invokable ButtonPadded">
                         <pre class="brush: js, gutter: false">
 $('#liveBox').append('&lt;button>&lt;/button>');
@@ -1044,7 +1047,7 @@ $('#liveBox').append('&lt;button>&lt;/button>');
                 <p class="Item">
                     You can animate a CSS property by calling the <code>animate</code> method.
                 </p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 var p = $('#slide27 p:visible');
 p.animate(
@@ -1057,7 +1060,7 @@ p.animate(
                     Animations are queued on each element, meaning that if you call <code>animate</code>
                     twice, the second animation will run after the first one finishes.
                 </p>
-                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" data-animation="slide">
                     <pre class="brush:js">
 var p = $('#slide27 p:visible');
 p.animate({ fontSize:  5 })
@@ -1072,12 +1075,12 @@ p.animate({ fontSize:  5 })
                 <h1>
                     Common Traversal Methods</h1>
                 <ul>
-                    <li class="Item" animation="drop"><code>.find(selector)</code></li>
-                    <li class="Item" animation="drop"><code>.filter(selector)</code></li>
-                    <li class="Item" animation="drop"><code>.children(selector)</code></li>
-                    <li class="Item" animation="drop"><code>.parent()</code></li>
-                    <li class="Item" animation="drop"><code>.eq(index)</code></li>
-                    <li class="Item" animation="drop"><code>.closest(selector)</code></li>
+                    <li class="Item" data-animation="drop"><code>.find(selector)</code></li>
+                    <li class="Item" data-animation="drop"><code>.filter(selector)</code></li>
+                    <li class="Item" data-animation="drop"><code>.children(selector)</code></li>
+                    <li class="Item" data-animation="drop"><code>.parent()</code></li>
+                    <li class="Item" data-animation="drop"><code>.eq(index)</code></li>
+                    <li class="Item" data-animation="drop"><code>.closest(selector)</code></li>
                 </ul>
             </div>
             <div class="Slide">
@@ -1090,7 +1093,7 @@ p.animate({ fontSize:  5 })
                 <p class="Item">
                     To send an AJAX request, call <code>$.ajax</code>:
                 </p>
-                <div class="Item CodeBox ShrinkWrap" animation="slide">
+                <div class="Item CodeBox ShrinkWrap" data-animation="slide">
                     <pre class="brush:js">
 $.ajax({
     url: "/something",
@@ -1122,7 +1125,7 @@ $.ajax({
                     that the other server supports it)<br />
                     jQuery includes a JSONP client in the getJSON method:
                 </p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js, auto-links: false">
 $.getJSON(
     "http://api.geonames.org/findNearByWeatherJSON"
@@ -1167,7 +1170,7 @@ $.getJSON(
                     Creating Plugins</h1>
                 <p class="Item">
                     You can add your own methods to the jQuery object by adding them to <code>jQuery.fn</code>:</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
                     <pre class="brush:js">
 jQuery.fn.double = function() { 
     this.append(this.html());
@@ -1198,8 +1201,8 @@ p.double();</pre>
                     Some of the more popular ones include:
                 </p>
                 <ul>
-                    <li class="Item" animation="drop">jQuery UI</li>
-                    <li class="Item" animation="drop">jQuery Validate</li>
+                    <li class="Item" data-animation="drop">jQuery UI</li>
+                    <li class="Item" data-animation="drop">jQuery Validate</li>
                 </ul>
             </div>
             <div class="Slide">
@@ -1222,10 +1225,10 @@ p.double();</pre>
                 <p class="Item">
                     <a href="http://getfirebug.com" target="_blank">http://GetFirebug.com</a>
                 </p>
-                <img class="Item" animation="Puff" src="Screenshots/Firebug-Inspector.png" alt="Firebug Inspector" />
-                <img class="Item" animation="Puff" src="Screenshots/Firebug-Console.png" alt="Firebug Console" />
+                <img class="Item" data-animation="Puff" src="Screenshots/Firebug-Inspector.png" alt="Firebug Inspector" />
+                <img class="Item" data-animation="Puff" src="Screenshots/Firebug-Console.png" alt="Firebug Console" />
                 <!--Doesn't fit-->
-                <!--<img class="Item" animation="Puff" src="Screenshots/Firebug-Debugger.png" />-->
+                <!--<img class="Item" data-animation="Puff" src="Screenshots/Firebug-Debugger.png" />-->
             </div>
             <div class="Slide">
                 <h1>
@@ -1253,7 +1256,8 @@ p.double();</pre>
                     <br />
                     Using a <code>vsdoc</code> file, you can even get full IntelliSense for jQuery.
                 </p>
-                <img class="Item" animation="Puff" src="Screenshots/VisualStudio-jQuery.png" alt="Visual Studio jQuery IntelliSense" />
+                <img class="Item" data-animation="Puff" src="Screenshots/VisualStudio-jQuery.png"
+                    alt="Visual Studio jQuery IntelliSense" />
                 <p class="Item">
                     Ordinarily, Visual Studio Professional costs $800, but it's available for free to
                     students through Microsoft's DreamSpark program.<br />
@@ -1272,7 +1276,7 @@ p.double();</pre>
                     related questions there and (typically) get an answer within minutes.<br />
                     Unlike ExpertsExchange, it's completely free.
                 </p>
-                <a class="Item" animation="clip" href="http://stackoverflow.com/users/34397/slaks"
+                <a class="Item" data-animation="clip" href="http://stackoverflow.com/users/34397/slaks"
                     target="_blank">
                     <img id="soFlair" src="" alt="SLaks - StackOverflow" /></a>
 
@@ -1287,19 +1291,19 @@ p.double();</pre>
                 <h1>
                     Credits</h1>
                 <ul>
-                    <li class="Item" animation="drop"><b>The jQuery Team</b>
+                    <li class="Item" data-animation="drop"><b>The jQuery Team</b>
                         <div class="Item">For producing a wonderful library</div>
                     </li>
-                    <li class="Item" animation="drop"><b>GitHub</b>
+                    <li class="Item" data-animation="drop"><b>GitHub</b>
                         <div class="Item">For hosting this project</div>
                     </li>
-                    <li class="Item" animation="drop"><b>The World Wide Web Consortium</b>
+                    <li class="Item" data-animation="drop"><b>The World Wide Web Consortium</b>
                         <div class="Item">For designing CSS3, with which this presentation was created</div>
                     </li>
                 </ul>
             </div>
             <div class="Slide">
-                <div class="SectionHeader Item" style="font-size: 210px" animation="fade">Questions?</div>
+                <div class="SectionHeader Item" style="font-size: 210px" data-animation="fade">Questions?</div>
             </div>
             <div class="Slide">
                 <!--The vertical centering assumes a height of one line-->
