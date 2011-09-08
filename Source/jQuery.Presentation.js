@@ -156,10 +156,13 @@ function Presentation(host) {
 		self.updateLayout(true);
 	});
 
-	this.host.mousewheel(function (event, delta, deltaX, deltaY) {
-		//Scroll wheel: Move items
-		self.itemMoveBy(delta < 0 ? 1 : -1);
-	});
+	if ($.fn.mousewheel) {	//If the mousewheel plugin is available, use it
+		this.host.mousewheel(function (event, delta, deltaX, deltaY) {
+			//Scroll wheel: Move items
+			self.itemMoveBy(delta < 0 ? 1 : -1);
+		});
+	}
+
 	$(document).keydown(function (e) {
 		switch (e.keyCode) {
 			//	//Page Up & Page Down: Move slides                                                                                                       
