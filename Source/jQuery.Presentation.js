@@ -1,4 +1,4 @@
-﻿/// <reference path="../Dependencies/jQuery-1.5.1-vsdoc.js" />
+﻿/// <reference path="../Dependencies/jquery-1.6.3-vsdoc.js" />
 /// <reference path="../Dependencies/jquery.mousewheel.js" />
 /// <reference path="../Dependencies/jquery.ba-hashchange.js" />
 /// <reference path="../Dependencies/jquery-ui-1.8.16.effects.min.js" />
