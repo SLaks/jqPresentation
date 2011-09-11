@@ -13,10 +13,12 @@ Presentation.Slide = function (parent, index, container) {
 	this.container = $(container);
 	this.items = this.container.find('.Item');
 	this.items.after('<div style="clear: both"> </div>'); //Fix layout issue
+	this.title = this.container.attr("title") || this.container.find(":header:first").text();
 
 	this.clear();
 };
 Presentation.Slide.prototype = {
+	title: '',
 	parent: {},
 	index: -1,
 	container: $(),
@@ -142,6 +144,7 @@ function Presentation(host) {
 	this.slideElems = host.children('.Slide');
 	this.slideElems.wrapAll('<div class="PresentationInner"> </div>');
 	this.slider = this.slideElems.parent();
+	this.baseTitle = document.title;
 
 	this.idMap = {};
 	this.slides = this.slideElems.map(function (slideIndex, elem) {
@@ -187,7 +190,7 @@ function Presentation(host) {
 
 	$(document).keydown(function (e) {
 		switch (e.keyCode) {
-			//	//Page Up & Page Down: Move slides                                                                                                                         
+			//	//Page Up & Page Down: Move slides                                                                                                                          
 			case 33: self.slideMoveBy(-1); return false;
 			case 34: self.slideMoveBy(+1); return false;
 
@@ -220,6 +223,7 @@ Presentation.prototype = {
 	slides: [new Presentation.Slide()],
 	slider: $(),
 	currentSlide: new Presentation.Slide(),
+	baseTitle: '',
 
 	parseHash: function () {
 		//If the hash is just an ID, use that
@@ -287,7 +291,6 @@ Presentation.prototype = {
 			else
 				this.slides[i].container.show();
 		}
-
 		//Before starting the animation, update the position immediately to account for hidden slides
 		if (!dontAnimate)
 			this.updateLayout(true);
@@ -295,6 +298,11 @@ Presentation.prototype = {
 		this.currentSlide = this.slides[targetIndex];
 		this.updateLayout(dontAnimate);
 		this.currentSlide.updateHash();
+
+		if (this.currentSlide.title)
+			document.title = this.baseTitle + " - " + this.currentSlide.title;
+		else
+			document.title = this.baseTitle;
 	},
 
 	updateLayout: function (dontAnimate) {

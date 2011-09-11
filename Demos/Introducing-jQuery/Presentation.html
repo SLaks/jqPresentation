@@ -262,24 +262,6 @@
         <div class="Presentation">
             <div class="Slide">
                 <h1>
-                    Microsoft.com</h1>
-                <table class="FullSlide GalleryTable Item" data-animation="fade">
-                    <tr>
-                        <td>
-                            <img src="Screenshots/History/1994-Microsoft.gif" alt="Microsoft.com, ca 1994" />
-                        </td>
-                    </tr>
-                </table>
-                <table class="FullSlide GalleryTable Item" data-animation="fade">
-                    <tr>
-                        <td>
-                            <img src="Screenshots/History/2011-Microsoft.png" alt="Microsoft.com, ca 2011" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="Slide">
-                <h1>
                     The Dark Age of DOM Scripting</h1>
                 <div class="ShrinkWrap CodeBox AutoRun">
                     <pre class="brush: js">
@@ -321,7 +303,7 @@ if (button.addEventListener) {
                 <p class="Item">
                     By switching to jQuery, these 20 lines can be reduced to just 4!
                 </p>
-                <div class="Item" data-animation="slide">
+                <div class="Item" data-animation="slide" id="jQuery-shortcode">
                     <div class="ShrinkWrap CodeBox AutoRun">
                         <pre class="brush: js">
 $('#hoverDemo2').hover(
@@ -384,7 +366,7 @@ $('#hoverDemo3').hover(
                     </table>
                 </div>
             </div>
-            <div class="Slide">
+            <div class="Slide" id="Downloading-jQuery">
                 <h1>
                     Downloading jQuery</h1>
                 <p class="Item" data-animation="Drop">
@@ -426,7 +408,7 @@ $('#hoverDemo3').hover(
                     Before releasing your site, change <b>jquery.js</b> to <b>jquery.min.js</b> to get
                     the production version.</p>
             </div>
-            <div class="Slide">
+            <div class="Slide" id="Advanced-JS" title="Advanced Javascript">
                 <div class="SectionHeader">Advanced Javascript</div>
             </div>
             <div class="Slide">
@@ -435,7 +417,7 @@ $('#hoverDemo3').hover(
                 <p class="Item">
                     Unlike many other languages, Javascript treats functions as first-class values.
                     Functions can be passed around put in variables, compared, and more.</p>
-                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide" id="function-returner">
                     <pre class="brush:js">
 function createMultiplier(by) {
     var inner = function(n) { return n * by; }  
