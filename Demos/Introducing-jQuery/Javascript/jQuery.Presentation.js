@@ -7,11 +7,13 @@ Presentation.Slide = function (parent, index, container) {
 	/// <summary>A single slide in a presentation.</summary>
 
 	if (!parent) return; //Allow new Presentation.Slide() for IntelliSense hinting
+
 	this.parent = parent;
 	this.index = index;
 	this.container = $(container);
 	this.items = this.container.find('.Item');
 	this.items.after('<div style="clear: both"> </div>'); //Fix layout issue
+
 	this.clear();
 };
 Presentation.Slide.prototype = {
@@ -111,18 +113,25 @@ Presentation.Slide.prototype = {
 		this.targetIndex = this.currentIndex = this.items.length;
 		this.updateHash();
 	},
+	getHash: function () {
+		if (this.index === 0 && this.currentIndex === 0)
+			return ""; 				//If we're all the way at the beginning, there is no hash
 
+		var slideId = this.container[0].id || this.index;
+
+		if (this.currentIndex === 0)	//If currentIndex is 0, there are no items yet, so we just return the slide ID
+			return slideId;
+
+		//If the previous item has an ID, use that
+		//We use the ID of the last item visible, 
+		//but the index of the next item to show
+		//(which looks like the one-based index of
+		//the last visible item)
+		return this.items[this.currentIndex - 1].id || (slideId + "/" + this.currentIndex);
+	},
 	updateHash: function () {
-		if (this.parent.currentSlide === this) {
-			if (this.index === 0 && this.currentIndex === 0)
-				location.hash = "";
-			else {
-				var hash = this.index.toString();
-				if (this.currentIndex !== 0)
-					hash += "/" + this.currentIndex;
-				location.hash = hash;
-			}
-		}
+		if (this.parent.currentSlide === this)
+			location.hash = this.getHash();
 	}
 };
 
@@ -134,11 +143,24 @@ function Presentation(host) {
 	this.slideElems.wrapAll('<div class="PresentationInner"> </div>');
 	this.slider = this.slideElems.parent();
 
-	this.slides = this.slideElems.map(function (index, elem) { return new Presentation.Slide(self, index, elem); }).get();
+	this.idMap = {};
+	this.slides = this.slideElems.map(function (slideIndex, elem) {
+		var slide = new Presentation.Slide(self, slideIndex, elem);
+
+		if (elem.id)
+			self.idMap[elem.id] = { slide: slideIndex, item: 0 };
+
+		slide.items.each(function (itemIndex) {
+			//An item ID maps to the subsequent index - the index of the next item to show
+			if (this.id)
+				self.idMap[this.id] = { slide: slideIndex, item: itemIndex + 1 };
+		});
+		return slide;
+	}).get();
+
 
 	this.slideElems.append(function (index, html) {
 		return '<div class="SlideNumber">Slide ' + (index + 1) + " of " + self.slides.length
-		//+ "; " + self.slides[index].items.length + " items!"
 			 + '</div>';
 	});
 	this.updateSize();
@@ -156,13 +178,16 @@ function Presentation(host) {
 		self.updateLayout(true);
 	});
 
-	this.host.mousewheel(function (event, delta, deltaX, deltaY) {
-		//Scroll wheel: Move items
-		self.itemMoveBy(delta < 0 ? 1 : -1);
-	});
+	if ($.fn.mousewheel) {	//If the mousewheel plugin is available, use it
+		this.host.mousewheel(function (event, delta, deltaX, deltaY) {
+			//Scroll wheel: Move items
+			self.itemMoveBy(delta < 0 ? 1 : -1);
+		});
+	}
+
 	$(document).keydown(function (e) {
 		switch (e.keyCode) {
-			//	//Page Up & Page Down: Move slides                                                                                                       
+			//	//Page Up & Page Down: Move slides                                                                                                                         
 			case 33: self.slideMoveBy(-1); return false;
 			case 34: self.slideMoveBy(+1); return false;
 
@@ -197,11 +222,25 @@ Presentation.prototype = {
 	currentSlide: new Presentation.Slide(),
 
 	parseHash: function () {
-		var match = /([0-9]+)\/?\s*([0-9]+)?/.exec(location.hash);
+		//If the hash is just an ID, use that
+		//That means a slide ID with no item,
+		//or an item ID.
+		var idMatch = this.idMap[location.hash.substr(1)]; //Remove the #
+		if (idMatch)
+			return idMatch;
+
+		//It's [Slide-ID|Slide-Index](/Item-Index)?
+		var match = /^#(?:([A-Za-z][A-Za-z0-9_.:-]*)|([0-9]+))(?:\/\s*([0-9]+))?$/.exec(location.hash);
 		if (!match) return false;
+
+		//match[1] is the Slide-ID or undefined
+		//match[2] is the Slide-Index (can be 0) or undefined
+		//If match[2] is 0, it's valid but falsy.
+		//match[1] cannot be valid but falsy.
+
 		return {
-			slide: parseInt(match[1], 10),
-			item: parseInt(match[2] || 0, 10)
+			slide: match[1] ? this.idMap[match[1]].slide : parseInt(match[2], 10),
+			item: parseInt(match[3] || 0, 10)
 		};
 	},
 
