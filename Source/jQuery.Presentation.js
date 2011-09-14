@@ -50,9 +50,9 @@ Presentation.Slide.prototype = {
 			this.isAnimating = true; //This will be set to false by doStep() in the completion callback
 
 			this.currentIndex--;
-			var item = self.items.eq(this.currentIndex); //Hide the previous item from before decrementing
+			var item = this.items.eq(this.currentIndex); //Hide the previous item from before decrementing
 			Presentation.getAnimation(item).hide(item, function () { self.doStep(); });
-			this.updateHash();
+			this.parent.updateHash();
 		}
 	},
 	stepForward: function () {
@@ -65,7 +65,7 @@ Presentation.Slide.prototype = {
 			this.currentIndex++;
 			var item = self.items.eq(this.currentIndex - 1);
 			Presentation.getAnimation(item).show(item, function () { self.doStep(); });
-			this.updateHash();
+			this.parent.updateHash();
 		}
 	},
 
@@ -96,7 +96,7 @@ Presentation.Slide.prototype = {
 			else
 				$(elem).hide();
 		});
-		this.updateHash();
+		this.parent.updateHash();
 	},
 
 	clear: function () {
@@ -105,7 +105,7 @@ Presentation.Slide.prototype = {
 
 		this.items.hide();
 		this.targetIndex = this.currentIndex = 0;
-		this.updateHash();
+		this.parent.updateHash();
 	},
 	fill: function () {
 		/// <summary>Finalizes the slide and shows all items.</summary>
@@ -113,32 +113,14 @@ Presentation.Slide.prototype = {
 
 		this.items.show();
 		this.targetIndex = this.currentIndex = this.items.length;
-		this.updateHash();
-	},
-	getHash: function () {
-		if (this.index === 0 && this.currentIndex === 0)
-			return ""; 				//If we're all the way at the beginning, there is no hash
-
-		var slideId = this.container[0].id || this.index;
-
-		if (this.currentIndex === 0)	//If currentIndex is 0, there are no items yet, so we just return the slide ID
-			return slideId;
-
-		//If the previous item has an ID, use that
-		//We use the ID of the last item visible, 
-		//but the index of the next item to show
-		//(which looks like the one-based index of
-		//the last visible item)
-		return this.items[this.currentIndex - 1].id || (slideId + "/" + this.currentIndex);
-	},
-	updateHash: function () {
-		if (this.parent.currentSlide === this)
-			location.hash = this.getHash();
+		this.parent.updateHash();
 	}
 };
 
 function Presentation(host) {
 	if (!host) return; //Allow new Presentation() for IntelliSense hinting
+	this.beginNavigation();
+
 	var self = this;
 	this.host = $(host);
 	this.slideElems = host.children('.Slide');
@@ -175,10 +157,11 @@ function Presentation(host) {
 		this.slideMoveTo(r.slide, true);
 		self.currentSlide.jumpTo(r.item);
 	}
+	this.endNavigation("Don't Update");
 
 	$(window).resize(function () {
 		self.updateSize();
-		self.updateLayout(true);
+		self.updateLayout("Don't Animate");
 	});
 
 	if ($.fn.mousewheel) {	//If the mousewheel plugin is available, use it
@@ -190,7 +173,7 @@ function Presentation(host) {
 
 	$(document).keydown(function (e) {
 		switch (e.keyCode) {
-			//	//Page Up & Page Down: Move slides                                                                                                                          
+			//	//Page Up & Page Down: Move slides                                                                                                                                     
 			case 33: self.slideMoveBy(-1); return false;
 			case 34: self.slideMoveBy(+1); return false;
 
@@ -208,12 +191,12 @@ function Presentation(host) {
 		}
 	});
 	$(window).hashchange(function () {
+		self.beginNavigation();
 		var r = self.parseHash();
-		if (!r)
-			return;
 		if (r.slide !== self.currentSlide.index)	//Prevent reentrancy
 			self.slideMoveTo(r.slide);
 		self.currentSlide.jumpTo(r.item);
+		self.endNavigation("Don't Update");
 	});
 }
 
@@ -224,6 +207,7 @@ Presentation.prototype = {
 	slider: $(),
 	currentSlide: new Presentation.Slide(),
 	baseTitle: '',
+	hashSuppressionCount: 0,
 
 	parseHash: function () {
 		//If the hash is just an ID, use that
@@ -235,7 +219,8 @@ Presentation.prototype = {
 
 		//It's [Slide-ID|Slide-Index](/Item-Index)?
 		var match = /^#(?:([A-Za-z][A-Za-z0-9_.:-]*)|([0-9]+))(?:\/\s*([0-9]+))?$/.exec(location.hash);
-		if (!match) return false;
+		if (!match)
+			return { slide: 0, item: 0 };
 
 		//match[1] is the Slide-ID or undefined
 		//match[2] is the Slide-Index (can be 0) or undefined
@@ -247,6 +232,44 @@ Presentation.prototype = {
 			item: parseInt(match[3] || 0, 10)
 		};
 	},
+	beginNavigation: function () { this.hashSuppressionCount++; },
+	endNavigation: function (dontUpdate) {
+		this.hashSuppressionCount--;
+		if (!dontUpdate)
+			this.updateHash();
+	},
+	getHash: function () {
+		var slide = this.currentSlide;
+		if (slide.index === 0 && slide.currentIndex === 0)
+			return ""; 				//If we're all the way at the beginning, there is no hash
+
+		var slideId = slide.container[0].id || slide.index;
+
+		if (slide.currentIndex === 0)	//If currentIndex is 0, there are no items yet, so we just return the slide ID
+			return slideId;
+
+		//If the previous item has an ID, use that
+		//We use the ID of the last item visible, 
+		//but the index of the next item to show
+		//(which looks like the one-based index of
+		//the last visible item)
+		return slide.items[slide.currentIndex - 1].id || (slideId + "/" + slide.currentIndex);
+	},
+	updateHash: function () {
+		if (this.hashSuppressionCount) return;
+
+		var hash = this.getHash();
+		if (location.hash === "#" + hash) return;
+
+		console && console.log("Moving from " + location.hash + " to #" + hash);
+
+		//Only create a new history entry when switching slides.
+		if (this.parseHash().slide === this.currentSlide.index)
+			location.replace("#" + hash);
+		else
+			location.hash = hash;
+	},
+
 
 	updateSize: function () {
 		var hBorderSize = this.slideElems.outerWidth(false) - this.slideElems.width();
@@ -272,6 +295,7 @@ Presentation.prototype = {
 		var target = this.slides[targetIndex];
 		if (!target) return;
 
+		this.beginNavigation();
 		//To prevent positions from overflowing, hide unnecessary slides
 		//If we're jumping very far, hide some slides in the middle too.
 		var min = Math.min(this.currentSlide.index, targetIndex);
@@ -293,16 +317,17 @@ Presentation.prototype = {
 		}
 		//Before starting the animation, update the position immediately to account for hidden slides
 		if (!dontAnimate)
-			this.updateLayout(true);
+			this.updateLayout("Don't Animate");
 
 		this.currentSlide = this.slides[targetIndex];
 		this.updateLayout(dontAnimate);
-		this.currentSlide.updateHash();
 
 		if (this.currentSlide.title)
 			document.title = this.baseTitle + " - " + this.currentSlide.title;
 		else
 			document.title = this.baseTitle;
+		this.updateHash();
+		this.endNavigation();
 	},
 
 	updateLayout: function (dontAnimate) {
