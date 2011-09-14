@@ -2,7 +2,13 @@
  * by the presentation system.  It does not 
  * contain any visual styling. 
  */
-
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
 .Presentation {
 	width: 100%;
 	height: 100%;
