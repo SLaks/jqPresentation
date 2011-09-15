@@ -1,0 +1,1315 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <title>Introducing jQuery</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href='favicon.ico' rel='shortcut icon' />
+        <link href="CSS/jqPresentation.css" rel="stylesheet" type="text/css" />
+        <link href="CSS/jqPresentation.Blue.css" rel="stylesheet" type="text/css" />
+        <link href="CSS/shCoreDefault.css" rel="stylesheet" type="text/css" />
+
+        <script src="Javascript/jquery-1.6.3.js" type="text/javascript"></script>
+
+        <script src="Javascript/jquery-ui-1.8.16.effects.min.js" type="text/javascript"></script>
+
+        <script src="Javascript/jquery.mousewheel.js" type="text/javascript"></script>
+
+        <script src="Javascript/jquery.ba-hashchange.js" type="text/javascript"></script>
+
+        <script src="Javascript/jqPresentation.js" type="text/javascript"></script>
+
+        <script src="Javascript/shCore.js" type="text/javascript"></script>
+
+        <script src="Javascript/shBrushJScript.js" type="text/javascript"></script>
+
+        <script src="Javascript/shBrushXml.js" type="text/javascript"></script>
+
+        <style type="text/css">
+            .Clock {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: #BFC1DE; /* Pre-blended color for IE */
+                background: rgba(255,255,255, .75);
+                border-bottom: solid 1px black;
+                border-left: solid 1px black;
+                padding: 3px;
+                font-size: 19px;
+            }
+            
+            /************************************************
+             * CodeBox styles 
+             ************************************************/
+            
+            .syntaxhighlighter table {
+                margin: 0px 0px 1px !important; /* Fixes vertical scrollbar in Webkit */
+            }
+            .syntaxhighlighter table td.code {
+                width: auto !important;
+            }
+            .Slide button {
+                clear: both;
+                font-size: large;
+                padding: 6px;
+                cursor: default;
+            }
+            .ShrinkWrap {
+                float: left;
+                clear: both;
+            }
+            .syntaxhighlighter {
+                background-color: transparent !important;
+                margin: 0 !important;
+            }
+            .CodeBox {
+                border: 1px solid #88F;
+                background-color: rgba(128,128,255, .05) !important;
+                position: relative;
+                font-size: 25px;
+                padding: 8px 0;
+                margin: 2px 15px 1em 0;
+                -moz-border-radius: 12px;
+                -webkit-border-radius: 12px;
+                border-radius: 12px;
+            }
+            .Item > .CodeBox {
+                margin-bottom: 0; /* Prevent double-margin */
+            }
+            .Invokable .Invoker {
+                border-radius: 20px;
+                -moz-border-radius: 20px;
+                -webkit-border-radius: 20px;
+                -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+                -webkit-transition: background .5s linear;
+                -moz-transition: background .5s linear;
+                box-shadow: 0 1px 2px rgba(0,0,0,.2);
+                border: solid 1px #b7b7b7;
+                background: #ededed; /* Webkit cannot animate gradients */
+                background: #ededed -webkit-gradient(linear, left top, left bottom, from(#fff), to(rgba(255,255,255,0)));
+                background: #ededed -moz-linear-gradient(top,  #fff,  rgba(255,255,255,0));
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed')";
+                padding: 0 3px 2px 5px;
+                position: absolute;
+                right: 10px;
+                top: 9px;
+                display: block;
+                color: Green;
+                text-shadow: 0 0 5px #0a0;
+                font-size: 15px;
+                width: 25px;
+                height: 25px;
+                cursor: pointer;
+            }
+            
+            .Invokable .Invoker:hover {
+                background-color: #cbcbcb;
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc')";
+            }
+            .Invokable .Invoker:active {
+                background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+                background: -moz-linear-gradient(top,  #ededed,  #fff);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff')";
+            }
+            
+            .CodeBox > code, .CodeBox > pre {
+                padding: 0 1em;
+            }
+            
+            .syntaxhighlighter .gutter .line {
+                border-right: 2px solid #88f !important;
+            }
+            .syntaxhighlighter .gutter {
+                color: #333 !important;
+            }
+            .syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
+                color: purple !important;
+            }
+            .syntaxhighlighter .line.alt1 {
+                background-color: transparent !important; /* IE doesn't support rgba */
+                background-color: rgba(0,0,0, .02) !important;
+            }
+            .syntaxhighlighter .line.alt2 {
+                background-color: transparent !important;
+            }
+            .syntaxhighlighter.nogutter td.code .container textarea, .Slide .syntaxhighlighter.nogutter td.code .line {
+                padding-left: 1em !important;
+            }
+            .CodeBox.ButtonPadded .syntaxhighlighter .code .line {
+                padding-right: 40px !important; /* This padding includes line highlights */
+            }
+            
+            /************************************************
+             * Gallery table 
+             ************************************************/
+            
+            .FullSlide {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                float: none;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                padding-bottom: 64px;
+            }
+            .GalleryTable {
+                padding: 0;
+                border-spacing: 0;
+                border-collapse: collapse;
+                width: 100%;
+                height: 100%;
+            }
+            .GalleryTable td {
+                text-align: center;
+                vertical-align: middle;
+            }
+            
+            .ButtonBox {
+                border: 1px solid #88F;
+                background-color: rgba(128,255,128, .05) !important;
+                position: relative;
+                padding: 8px;
+                margin: 2px 15px 1em 0;
+                -moz-border-radius: 12px;
+                -webkit-border-radius: 12px;
+                border-radius: 12px;
+                float: right;
+            }
+            .ButtonBox.Three {
+                width: 117px;
+            }
+            .ButtonBox.Three button {
+                width: 35px;
+                height: 35px;
+                margin: 2px;
+                display: inline-block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="Presentation">
+            <div class="Slide">
+                <h1>
+                    The Dark Age of DOM Scripting</h1>
+                <div class="ShrinkWrap CodeBox AutoRun">
+                    <pre class="brush: js">
+function setOpacity(elem, newValue) {
+    elem.style.opacity = newValue;
+    //IE hacks:
+    elem.style.zoom = 1;    //Force hasLayout; needed for filters
+    elem.style.filter = 'alpha(opacity=' + (newValue * 100) + ')';
+}
+
+var button = document.getElementById('hoverDemo1');
+function onMouseOver() {
+    setOpacity(button, 1);
+}
+function onMouseOut() {
+    setOpacity(button, .5);
+}
+setOpacity(button, .5);     //Fade immediately
+if (button.addEventListener) {
+    button.addEventListener('mouseover', onMouseOver, false);
+    button.addEventListener('mouseout', onMouseOut, false);
+} else {                    //More IE Hacks:
+    button.attachEvent('onmouseover', onMouseOver);
+    button.attachEvent('onmouseout', onMouseOut);
+}</pre>
+                </div>
+                <button id="hoverDemo1">
+                    Hover me!
+                </button>
+            </div>
+            <div class="Slide">
+                <h1>
+                    jQuery in Action</h1>
+                <p class="Item">
+                    jQuery is an open-source Javascript library that takes the pain out of DOM manipulation,
+                    hiding browser differences from developers, and providing a single uniform and consistent
+                    API that works in every major browser.
+                </p>
+                <p class="Item">
+                    By switching to jQuery, these 20 lines can be reduced to just 4!
+                </p>
+                <div class="Item" data-animation="slide" id="jQuery-shortcode">
+                    <div class="ShrinkWrap CodeBox AutoRun">
+                        <pre class="brush: js">
+$('#hoverDemo2').hover(
+    function() { $(this).css('opacity', 1.0); },
+    function() { $(this).css('opacity', 0.5); }
+).css('opacity', 0.5);  //Set initial opacity
+</pre>
+                    </div>
+                    <button id="hoverDemo2">
+                        Hover me!
+                    </button>
+                </div>
+                <p class="Item">
+                    Using jQuery, we can also easily add additional features, such as animation:
+                </p>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap CodeBox AutoRun">
+                        <pre class="brush: js">
+$('#hoverDemo3').hover(
+    function() { $(this).animate({ opacity: 1.0 }); },
+    function() { $(this).animate({ opacity: 0.5 }); }
+).css('opacity', 0.5);  //Set initial opacity
+</pre>
+                    </div>
+                    <button id="hoverDemo3">
+                        Hover me!
+                    </button>
+                </div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Who's Using jQuery?
+                </h1>
+                <div class="Item FullSlide" data-animation="QuickGallery">
+                    <table class="GalleryTable">
+                        <tr>
+                            <td class="GalleryItem">
+                                <img src="Logos/Google.png" alt="Google" /></td>
+                            <td class="GalleryItem">
+                                <img src="Logos/Microsoft.png" alt="Microsoft" /></td>
+                            <td class="GalleryItem">
+                                <img src="Logos/Wordpress.png" alt="Wordpress" /></td>
+                        </tr>
+                        <tr>
+                            <td class="GalleryItem">
+                                <img src="Logos/Nokia.png" alt="Nokia" /></td>
+                            <td class="GalleryItem">
+                                <img src="Logos/Amazon.png" alt="Amazon" /></td>
+                            <td class="GalleryItem">
+                                <img src="Logos/NetFlix.png" alt="NetFlix" /></td>
+                        </tr>
+                        <tr>
+                            <td class="GalleryItem">
+                                <img src="Logos/Twitter.png" alt="Twitter" /></td>
+                            <td class="GalleryItem">
+                                <img src="Logos/Dell.png" alt="Dell" /></td>
+                            <td class="GalleryItem">
+                                <img src="Logos/AOL.png" alt="AOL" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="Slide" id="Downloading-jQuery">
+                <h1>
+                    Downloading jQuery</h1>
+                <p class="Item" data-animation="Drop">
+                    <a href="http://jquery.com" target="_blank">http://jQuery.com</a></p>
+                <img src="Screenshots/jQuery-Download.png" alt="Download(jQuery);" class="Item" data-animation="scale" />
+                <p class="Item">
+                    When creating your site, you should use the <a href="view-source:http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"
+                        target="_blank"><b>Development</b></a> version, which is nicely formatted and
+                    commented.
+                </p>
+                <p class="Item">
+                    After your site is finished, you should switch to the <a href="view-source:http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"
+                        target="_blank"><b>Production</b></a> version, which is three times smaller,
+                    but impossible to debug.
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Not Downloading jQuery</h1>
+                <p class="Item">
+                    Actually, you don't even need to download jQuery.</p>
+                <p class="Item">
+                    Google graciously provides free hosted versions of jQuery (and other libraries),
+                    so you can just add a <code>&lt;script></code> tag that references jQuery from Google's
+                    servers without downloading anything.</p>
+                <div class="Item CodeBox Smaller" data-animation="slide">
+                    <pre class="brush: html">
+&lt;script type=&quot;text/javascript&quot; 
+        src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js&quot;&gt;
+&lt;/script&gt;</pre>
+                </div>
+                <p class="Item">
+                    If you don't remember the URL, just <a href="http://www.google.com/search?q=jQuery+Google"
+                        target="_blank">search Google for <b>jQuery Google</b></a> and you'll find it
+                    in the first result.<br />
+                    You can also find the URLs for Google's hosted libraries at <a href="http://scriptsrc.net/"
+                        target="_blank">http://ScriptSrc.net</a>.</p>
+                <p class="Item">
+                    Before releasing your site, change <b>jquery.js</b> to <b>jquery.min.js</b> to get
+                    the production version.</p>
+            </div>
+            <div class="Slide" id="Advanced-JS" title="Advanced Javascript">
+                <div class="SectionHeader">Advanced Javascript</div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    More on Functions</h1>
+                <p class="Item">
+                    Unlike many other languages, Javascript treats functions as first-class values.
+                    Functions can be passed around put in variables, compared, and more.</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide" id="function-returner">
+                    <pre class="brush:js">
+function createMultiplier(by) {
+    var inner = function(n) { return n * by; }  
+    return inner;      
+} 
+var doubler = createMultiplier(2); 
+alert("doubler(2) returns " + doubler(2));
+                    </pre>
+                </div>
+                <p class="Item">
+                    Javascript functions can take any number of arguments, regardless of what parameters
+                    the function declared.</p>
+                <p class="Item">
+                    Extra arguments can be retrieved from the <code>arguments</code> keyword, which
+                    is an array-like object.</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+function showArgs() {
+    alert("I got " + arguments.length + " arguments!\n"
+        + "The third one is " + arguments[2]);
+} 
+showArgs();
+showArgs(1, 2, 3);
+                    </pre>
+                </div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Objects</h1>
+                <p class="Item">
+                    Javascript supports objects, which are essentially bags of member values. These
+                    members can include simple values, functions, or more objects.
+                </p>
+                <p class="Item">
+                    Objects inherit properties (including methods) from <code>prototype</code>s, which
+                    are similar to classes in classical object-oriented languages.
+                    <br />
+                    This feature is beyond the scope of this presentation.
+                </p>
+                <p class="Item">
+                    Every value you can work with in Javascript, except for <code>null</code> and <code>
+                        undefined</code>, is actually an object, and has properties.
+                    <br />
+                    For example, writing <code>42.toString()</code> accesses the <code>toString</code>
+                    property (which is inherited from <code>Number.prototype</code>) and calls the function
+                    that the property points to.
+                </p>
+                <p class="Item">
+                    You can create your own objects by writing <code>{ }</code>, and optionally putting
+                    properties between the braces.</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+var emptyObject = { };
+emptyObject.state = "Not empty anymore";
+
+var person = { name: "שמואל", age: 42 };
+person.age++;        //Happy birthday!
+alert(person.name + " is " + person.age);
+                    </pre>
+                </div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    The <code>this</code> Keyword</h1>
+                <p class="Item">
+                    All Javascript functions take a hidden parameter called the <code>this</code> keyword.</p>
+                <p class="Item">
+                    The <code>this</code> keyword indicates the context on which the function was invoked.</p>
+                <p class="Item">
+                    If you call a function normally, <code>this</code> will be the global <code>window</code>
+                    object.</p>
+                <p class="Item">
+                    If you call a function on an object, <code>this</code> will be the object that you
+                    called it on.</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+function whatsThis() {
+    return this.name;
+} 
+window.name = "the window object";
+alert("When called normally, this is " + whatsThis());
+
+var myObject = { 
+    name: "MyObject", 
+    whatsThis: whatsThis
+};
+alert("When called on an object, this is " + myObject.whatsThis());
+                    </pre>
+                </div>
+            </div>
+            <div class="Slide">
+                <div class="SectionHeader">Using jQuery</div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    jQuery Objects</h1>
+                <p class="Item">
+                    Most of jQuery is built around the <i>jQuery object</i>.</p>
+                <p class="Item">
+                    A jQuery object is an immutable Javascript object which wraps a set of DOM elements
+                    and contains jQuery methods that manipulate the elements.</p>
+                <p class="Item">
+                    For those of you who know Java or similar languages, a jQuery object can be thought
+                    of as an instance of the jQuery class, which has a <code>List&lt;DOMElement></code>
+                    and some methods that do things with the elements.</p>
+                <p class="Item">
+                    You can create jQuery objects by calling the <code>jQuery</code> function.</p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    The jQuery Function</h1>
+                <p class="Item">
+                    The <code>jQuery</code> function takes a variety of parameters and returns a jQuery
+                    object.
+                </p>
+                <ul>
+                    <li class="Item" data-animation="drop"><code>jQuery("selector")</code><br />
+                        The most useful version of the <code>jQuery</code> function takes a CSS selector
+                        as a parameter. It returns a jQuery object with all elements in the document that
+                        match the selector.</li>
+                    <li class="Item" data-animation="drop"><code>jQuery(domElement)</code><br />
+                        You can also call the <code>jQuery</code> function with a single DOM element to
+                        create a jQuery object containing that element.
+                        <div class="Item">This is frequently used in event handlers&mdash;writing <code>jQuery(this)</code>
+                            will create a jQuery object for the element that fired the event. </div>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>jQuery(domArray)</code><br />
+                        The <code>jQuery</code> function can also take an array of DOM elements, creating
+                        a jQuery object containing all of the elements in the array. </li>
+                    <li class="Item" data-animation="drop"><code>jQuery()</code><br />
+                        Calling the <code>jQuery</code> function with no parameters creates an empty jQuery
+                        object with no elements inside of it. </li>
+                    <li class="Item" data-animation="drop"><code>jQuery("html string")</code><br />
+                        Finally, you can also call <code>jQuery</code> function with a string containing
+                        (<i>well-formed!</i>) HTML. This will parse the HTML into a set of new DOM elements
+                        and return a jQuery object containing the elements.</li>
+                </ul>
+            </div>
+            <div class="Slide">
+                <h1>
+                    The jQuery Function, continued</h1>
+                <p class="Item">
+                    In addition to creating jQuery objects, the <code>jQuery</code> function has an
+                    additional use: it can execute code when the page loads.</p>
+                <p class="Item">
+                    Writing <code>jQuery(function() { ... })</code> will execute the function after
+                    the DOM tree is complete (before images finish loading).
+                    <br />
+                    If the DOM tree has already been loaded, the function will be executed immediately.</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+jQuery(function() {
+    alert("There are " + jQuery('*').length + " DOM elements!");
+    //More code here...
+});</pre>
+                </div>
+                <p class="Item">
+                    When you write Javascript code at the top of an HTML file, it must be wrapped in
+                    this call or it will run before the page body has been parsed.</p>
+                <p class="Item">
+                    The <code>jQuery</code> function will be called many times in a typical jQuery-based
+                    page. To make code shorter, jQuery also has a <code>$</code> function which is aliased
+                    to the <code>jQuery</code> function.</p>
+                <p class="Item">
+                    Thus, all of these examples can be written using <code>$(...)</code> intead of <code>
+                        jQuery(...)</code>.<br />
+                    Almost all real-world code uses the <code>$</code> function.</p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Selectors</h1>
+                <p class="Item">
+                    jQuery supports almost all selectors from the CSS3 specification, regardless of
+                    the selectors supported by the browser. jQuery also adds its own custom selectors
+                    that are not in CSS.</p>
+                <p class="Item">
+                    A complete listing of jQuery selectors is beyond the scope of this presentation;
+                    for more selectors, see <a href="http://api.jquery.com/category/selectors/" target="_blank">
+                        http://api.jquery.com/category/selectors</a>.<br />
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Common Selectors</h1>
+                <ul>
+                    <li class="Item" data-animation="drop"><code>#someId</code>
+                        <div class="Item CodeBox ShrinkWrap"><code><b>&lt;div id="someId"></b>Lorem ipsum dolor
+                            sit<b>&lt;/div></b></code> </div>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>tagname</code>
+                        <div class="Item CodeBox ShrinkWrap"><code><b>&lt;tagname></b>Lorem ipsum dolor sit<b>&lt;/tagname></b></code>
+                        </div>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>.SomeClass</code>
+                        <div class="Item CodeBox ShrinkWrap">
+                            <pre>
+<b>&lt;div class="Header SomeClass"></b>Lorem ipsum dolor sit<b>&lt;/div></b>
+consectetur adipisicing elit
+<b>&lt;div class="SomeClass"></b>sed do eiusmod<b>&lt;/div></b></pre>
+                        </div>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>#someId .SomeClass</code>
+                        <div class="Item CodeBox ShrinkWrap">
+                            <pre>
+&lt;div id="someId">Lorem ipsum dolor sit&lt;/div>
+    <b>&lt;div class="SomeClass"></b>sed do eiusmod<b>&lt;/div></b>
+&lt;/div></pre>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Using jQuery Objects</h1>
+                <p class="Item">
+                    Now that we've seen how to create jQuery objects, what can we do with them?</p>
+                <p class="Item">
+                    A jQuery object is an <i>array-like object</i>&mdash;it can be used as an array
+                    of DOM elements. In other words, all jQuery objects have a <code>length</code> property
+                    that indicates the number of elements in the set, and numbered properties (from
+                    <code>0</code> to <code>length - 1</code>) for the raw DOM elements.
+                </p>
+                <p class="Item">
+                    Therefore, you can write <code>$('p')[2]</code> to get the DOM element for the 3<sup>rd</sup>
+                    <code>&lt;p></code> tag in the page.
+                </p>
+                <p class="Item">
+                    <i>Note:</i> This is not a jQuery object; it's a native DOM element. To get a jQuery
+                    object containing the 3<sup>rd</sup> <code>&lt;p></code> tag in the page, write
+                    <code>$('p').eq(2)</code>.
+                </p>
+                <p class="Item">
+                    In addition to acting like arrays, jQuery objects have nearly 150 methods. I'll
+                    cover the more useful ones; for complete documentation, see <a href="http://api.jquery.com/"
+                        target="_blank">http://API.jQuery.com</a>.
+                </p>
+                <p class="Item">
+                    jQuery methods fall into three categories:</p>
+            </div>
+            <div id="slide13" class="Slide">
+                <h1>
+                    Informative Methods</h1>
+                <p class="Item">
+                    These methods retrieve information about an element. They return a Javascript value
+                    (typically a string or number) that tells you something useful.</p>
+                <div class="Item CodeBox ButtonPadded ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js, gutter: false">alert($('#slide13 p').text());</pre>
+                </div>
+            </div>
+            <div id="slide14" class="Slide">
+                <h1>
+                    Action Methods</h1>
+                <p class="Item">
+                    These methods modify the elements in the jQuery object. They return the jQuery object
+                    that they were called on, allowing you to "chain" method calls&mdash;to call multiple
+                    methods on the same object.</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+$('&lt;b> Hi There! &lt;/b>')
+    .appendTo("#slide14 p:first")
+    .hide()
+    .fadeIn("slow");</pre>
+                </div>
+            </div>
+            <div id="slide15" class="Slide">
+                <h1>
+                    Traversal Methods</h1>
+                <p class="Item">
+                    These methods create a new jQuery object containing elements based on the contents
+                    of the set you called it on.</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+var slide = $('#slide15');
+var items = slide.find('.Item');
+alert(items.length + " items");</pre>
+                </div>
+            </div>
+            <div id="slide16" class="Slide">
+                <h1>
+                    Property Methods</h1>
+                <p class="Item">
+                    Many jQuery methods are properties&mdash;they can either return something or change
+                    it, depending on what parameters they're passed. Thus, they're both informative
+                    methods and action methods.</p>
+                <p class="Item">
+                    To get the value of a property, call the method with no parameters. It will return
+                    the value for the first element in the set.<br />
+                    To set the property, call the method and pass the new value as a parameter.<br />
+                    It will set the property for all elements in the set. Like all other action methods,
+                    it will return the jQuery object you called it on, allowing you to chain more methods.</p>
+                <p class="Item">
+                    You can also pass a function as the parameter, and jQuery will call the function
+                    for each element in the jQuery object and set the property to whatever the function
+                    returns.<br />
+                    jQuery will pass two parameters to the function: the index (in the set) of the element
+                    it's being called for and the current value of the property for that element.
+                </p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+var items = $('#slide16 p.Item');
+items.html(
+    function(index, oldHtml) {
+        return (index + 1) + ": " + oldHtml;
+    }
+);
+                    </pre>
+                </div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Common Informative Methods</h1>
+                <ul>
+                    <li class="Item" data-animation="drop"><code>.is(selector)</code>
+                        <p class="Item">
+                            The <code>is</code> method checks whether at least one element in the set matches
+                            a selector.
+                        </p>
+                        <p class="Item">
+                            The <code>is</code> method is particularly useful with selectors like <code>:animated</code>,
+                            <code>:visible</code>, or <code>:hidden</code>.
+                        </p>
+                        <div class="Item CodeBox ShrinkWrap" data-animation="slide">
+                            <pre class="brush:js, gutter: false">
+if ($(something).is(":visible"))
+</pre>
+                        </div>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>.hasClass(class)</code>
+                        <p class="Item">
+                            The <code>hasClass</code> method checks whether at least one element in the set
+                            the given class.
+                        </p>
+                        <div class="Item CodeBox ShrinkWrap" data-animation="slide">
+                            <pre class="brush:js, gutter: false">
+if ($(something).hasClass("error"))
+</pre>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="slide21" class="Slide">
+                <h1>
+                    Common Properties</h1>
+                <ul>
+                    <li class="Item" data-animation="drop"><code>.html()</code>
+                        <p class="Item">
+                            The <code>html</code> property gets or sets the inner HTML of an element.
+                        </p>
+                        <div class="Item CodeBox ButtonPadded ShrinkWrap Invokable" data-animation="slide">
+                            <pre class="brush:js, gutter: false">alert($('#slide21 p').html());</pre>
+                        </div>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>.text()</code><p class="Item">
+                        The <code>text</code> property gets or sets the actual text of an element; it will
+                        unescape any HTML entities and will include the text of nested elements.
+                    </p>
+                        <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                            <pre class="brush:js">
+var p = $('#slide21 li:contains(".text") p');
+p.text(function(index, oldText) { return oldText; });</pre>
+                        </div>
+                        <p class="Item" data-animation="fade">
+                            I'm <b>bold</b> or <i>italic</i>!<br />
+                            Isn't that <s>boring</s>?</p>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>.width()</code> / <code>.height()</code>
+                        <p class="Item">
+                            These properties give the inner dimensions an element, in pixels.<br />
+                            Setting these properties will directly modify the CSS <code>height</code> and <code>
+                                width</code> properties.
+                        </p>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>.val()</code>
+                        <p class="Item">
+                            The <code>val</code> property gives the current value of a form element (<code>&lt;input></code>,
+                            <code>&lt;select></code>, <code>&lt;option></code>, or <code>&lt;textarea></code>).
+                            Typically, this property maps directly to the native DOM element's <code>value</code>
+                            property.
+                        </p>
+                        <p class="Item">
+                            However, <code>&lt;select></code> elements don't have a <code>value</code> property
+                            (only <code>selectedIndex</code>). For <code>&lt;select></code> elements, the <code>
+                                val</code> property will find the selected <code>&lt;option></code> and return
+                            its value.
+                            <br />
+                            For multi-select listboxes, <code>val</code> will return an array of the selected
+                            values.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div id="slide22" class="Slide">
+                <h1>
+                    Keyed Properties</h1>
+                <ul>
+                    <li class="Item" data-animation="drop"><code>.css()</code> </li>
+                    <li class="Item" data-animation="drop"><code>.attr()</code></li>
+                </ul>
+                <p class="Item">
+                    These methods take an additional parameter for the name of the property to get or
+                    set.
+                </p>
+                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" data-animation="slide">
+                    <pre class="brush:js, gutter: false">alert($('#slide22 .CodeBox').attr('animation'));</pre>
+                </div>
+                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" data-animation="slide">
+                    <pre class="brush:js, gutter: false">$('#slide22 .CodeBox').attr('animation', 'explode');</pre>
+                </div>
+                <p class="Item">
+                    These methods can also take an object of properties to set.
+                </p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+$('#slide22 p').css({
+	fontStyle: "italic",
+	color: "Green"
+});</pre>
+                </div>
+            </div>
+            <div id="slide23" class="Slide">
+                <h1>
+                    Common Action Methods</h1>
+                <ul>
+                    <li class="Item" data-animation="drop"><code>.addClass(classname)</code> / <code>.removeClass(classname)</code>
+                        <p class="Item">
+                            Adds or removes CSS classes from the elements in the set.
+                        </p>
+                        <div class="ShrinkWrap CodeBox Item" data-animation="slide">
+                            <pre class="brush: js">
+$('.Active').removeClass("Active");
+$(something).addClass("Active");
+</pre>
+                        </div>
+                    </li>
+                    <li class="Item" data-animation="drop"><code>.append(stuff)</code>
+                        <p class="Item">
+                            Appends stuff to the end of every element in the set.&nbsp; <code>stuff</code> can
+                            be a jQuery object, a DOM element, a string of HTML, or a function that generates
+                            one of the above.
+                        </p>
+                        <div class="ShrinkWrap CodeBox Item Invokable ButtonPadded" data-animation="slide">
+                            <pre class="brush: js, gutter: false">
+$('#slide23 p.Item').append(" &amp;#9786;");
+</pre>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Events</h1>
+                <p class="Item">
+                    jQuery can add event handlers using the <code>.bind()</code>, which takes one or
+                    more event names and a callback to handle the event.</p>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap CodeBox AutoRun">
+                        <pre class="brush: js">
+$('#eventDemo1').bind("mousemove", function(e) { 
+	$(this).text(e.pageX + ", " + e.pageY);
+});
+</pre>
+                    </div>
+                    <button id="eventDemo1">
+                        Hover me!
+                    </button>
+                </div>
+                <p class="Item">
+                    jQuery also has helper methods for common events:</p>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap CodeBox AutoRun">
+                        <pre class="brush: js">
+$('#eventDemo2').keyup(function() { 
+	$("#echoer").text(this.value);
+});
+</pre>
+                    </div>
+                    <div style="float: left">
+                        <input id="eventDemo2" /><br />
+                        <span id="echoer"></span></div>
+                </div>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap CodeBox AutoRun">
+                        <pre class="brush: js">
+$('#hoverDemo4').hover(
+    function() { $(this).css('opacity', 1.0); },
+    function() { $(this).css('opacity', 0.5); }
+).css('opacity', 0.5);  //Set initial opacity
+</pre>
+                    </div>
+                    <button id="hoverDemo4">
+                        Hover me!
+                    </button>
+                </div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Event Pitfalls</h1>
+                <p class="Item">
+                    There are two common mistakes that people make when creating event handlers.
+                </p>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap ButtonPadded CodeBox Invokable">
+                        <pre class="brush: js, gutter: false">
+$('#eventDemo3').click(alert("Clicked!"));
+</pre>
+                    </div>
+                    <button id="eventDemo3">
+                        Click me!
+                    </button>
+                </div>
+                <p class="Item">
+                    This code calls <code>alert</code> <i>immediately</i>, then passes its return value
+                    to the jQuery <code>click</code> method.<br />
+                    It should be written like this, passing a function expression that calls <code>alert</code>
+                    to the <code>click</code> method.
+                </p>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap ButtonPadded CodeBox Invokable">
+                        <pre class="brush: js, gutter: false">
+$('#eventDemo4').click(function() { alert("Clicked!"); });
+</pre>
+                    </div>
+                    <button id="eventDemo4">
+                        Click me!
+                    </button>
+                </div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Event Pitfalls</h1>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap CodeBox Invokable ButtonPadded">
+                        <pre class="brush: js">
+var container = $('#buttonBox1').empty();
+for (var i = 1; i &lt;= 9; i++) {
+	$('&lt;button>' + i + '&lt;/button>')
+		.click(function() { alert(i); })
+		.appendTo(container);
+}
+</pre>
+                    </div>
+                    <div id="buttonBox1" class="ButtonBox Three">Buttons will appear here!</div>
+                </div>
+                <p class="Item">
+                    This code captures the <code>i</code> variable in the function expression. However,
+                    because Javascript doesn't have block scoping, the code shares a single <code>i</code>
+                    variable among all of the callbacks.
+                    <br />
+                    The callbacks are only run after the <code>for</code> loop finishes (when the user
+                    clicks the buttons), when <code>i</code> is <code>10</code>.
+                </p>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap CodeBox Invokable ButtonPadded">
+                        <pre class="brush: js">
+var container = $('#buttonBox2').empty();
+for (var i = 1; i &lt;= 9; i++) {
+    createButton(i);
+}
+function createButton(i) {
+	$('&lt;button>' + i + '&lt;/button>')
+		.click(function() { alert(i); })
+		.appendTo(container);
+}
+</pre>
+                    </div>
+                    <div id="buttonBox2" class="ButtonBox Three">Buttons will appear here!</div>
+                </div>
+                <p class="Item">
+                    To fix this code, I move the callbacks to a separate method which takes <code>i</code>
+                    as a parameter. Since each callback now comes from a different method invocation,
+                    they don't share the same variable.
+                </p>
+            </div>
+            <div id="slide25" class="Slide">
+                <h1>
+                    Live Events</h1>
+                <p class="Item">
+                    Another common problem with jQuery events is that event handlers are only added
+                    to the elements <i>currently</i> in the set. If new similar elements are added later,
+                    they won't get event handlers unless they're added separately.
+                </p>
+                <p class="Item">
+                    To solve this problem, jQuery supports live events, which bind handlers to all elements
+                    that match a selector, no matter when they were created.
+                </p>
+                <div class="Item CodeBox ShrinkWrap AutoRun" data-animation="slide">
+                    <pre class="brush:js">
+$('#liveBox button').live('click', function() { 
+    alert("Congratulations!\nYou clicked a button!");
+});
+                    </pre>
+                </div>
+                <p class="Item">
+                    After running this code, all elements that match the selector will have their <code>
+                        click</code> event handled.
+                </p>
+                <div class="Item" data-animation="slide">
+                    <div class="ShrinkWrap CodeBox Invokable ButtonPadded">
+                        <pre class="brush: js, gutter: false">
+$('#liveBox').append('&lt;button>&lt;/button>');
+</pre>
+                    </div>
+                    <div id="liveBox" class="ButtonBox Three"></div>
+                </div>
+            </div>
+            <div id="slide27" class="Slide">
+                <h1>
+                    Animation</h1>
+                <p class="Item">
+                    You can animate a CSS property by calling the <code>animate</code> method.
+                </p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+var p = $('#slide27 p:visible');
+p.animate(
+    { fontSize: 50 }, 
+    2500, //milliseconds
+    function() { alert('Done!\n\n' + $(this).text()); }
+);</pre>
+                </div>
+                <p class="Item">
+                    Animations are queued on each element, meaning that if you call <code>animate</code>
+                    twice, the second animation will run after the first one finishes.
+                </p>
+                <div class="Item CodeBox ShrinkWrap ButtonPadded Invokable" data-animation="slide">
+                    <pre class="brush:js">
+var p = $('#slide27 p:visible');
+p.animate({ fontSize:  5 })
+ .animate({ fontSize: 25 });</pre>
+                </div>
+                <p class="Item">
+                    Any numeric property can be animated.<br />
+                    jQuery UI adds the ability to animate colors.
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Common Traversal Methods</h1>
+                <ul>
+                    <li class="Item" data-animation="drop"><code>.find(selector)</code></li>
+                    <li class="Item" data-animation="drop"><code>.filter(selector)</code></li>
+                    <li class="Item" data-animation="drop"><code>.children(selector)</code></li>
+                    <li class="Item" data-animation="drop"><code>.parent()</code></li>
+                    <li class="Item" data-animation="drop"><code>.eq(index)</code></li>
+                    <li class="Item" data-animation="drop"><code>.closest(selector)</code></li>
+                </ul>
+            </div>
+            <div class="Slide">
+                <h1>
+                    AJAX</h1>
+                <p class="Item">
+                    jQuery also has an AJAX library, which hides the differences in <code>XmlHttpRequest</code>s
+                    between browsers.
+                </p>
+                <p class="Item">
+                    To send an AJAX request, call <code>$.ajax</code>:
+                </p>
+                <div class="Item CodeBox ShrinkWrap" data-animation="slide">
+                    <pre class="brush:js">
+$.ajax({
+    url: "/something",
+    type: "POST",
+    success: function(data, status) {
+        ...
+    },
+    error: function() { 
+        ... 
+    }
+});
+                    </pre>
+                </div>
+                <p class="Item">
+                    AJAX is asynchronous. When you send an AJAX request, the next line of code will
+                    execute immediately, before the server sends a reply. Therefore, any code that needs
+                    the server's reply must go in the <code>success</code> callback.
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    JSONP</h1>
+                <p class="Item">
+                    For security reasons, AJAX requests can only be sent to URLs in the same domain
+                    that the page is running on.
+                </p>
+                <p class="Item">
+                    To send AJAX requests to a different website, you can use the JSONP protocol. (assuming
+                    that the other server supports it)<br />
+                    jQuery includes a JSONP client in the getJSON method:
+                </p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js, auto-links: false">
+$.getJSON(
+    "http://api.geonames.org/findNearByWeatherJSON"
+    + "?lat=40.849557&lng=-73.929857&username=demo&callback=?",
+    function(data) {
+        var celsius = data.weatherObservation.temperature;
+        var fahrenheit = 32 + (212 - 32) / 100 * celsius;
+        alert("It's " + Math.round(fahrenheit) + "° outside!");
+    }
+);</pre>
+                </div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Understanding JSONP</h1>
+                <p class="Item">
+                    When you make a JSONP request, jQuery will create a callback function with a unique
+                    name and add a <code>callback=<i>name</i></code> parameter to the query string.
+                    It will then create <code>&lt;script></code> tag pointing to the URL.
+                </p>
+                <p class="Item">
+                    The server-side script is expected to return Javascript code that calls the function
+                    specified by the <code>callback</code> parameter and passes it the requested data.
+                </p>
+                <p class="Item">
+                    In this case, jQuery will generate a URL like <code>http://api.geonames.org/findNearByWeatherJSON?lat=40.849557&lng=-73.929857&username=demo&<b>callback=jQuery1510697_1300041015100</b>&_=1300041017078</code>.
+                </p>
+                <p class="Item">
+                    This URL returns Javascript code like <code>jQuery1510697_1300041015100({"weatherObservation":
+                        { ... }});</code>.
+                    <br />
+                    When the new <code>&lt;script></code> tag executes, this code calls the generated
+                    <code>jQuery1510697_1300041015100</code> method, which will in turn call the callback
+                    passed to <code>getJSON</code>.
+                </p>
+            </div>
+            <div class="Slide">
+                <div class="SectionHeader">Extending jQuery</div>
+            </div>
+            <div id="slide30" class="Slide">
+                <h1>
+                    Creating Plugins</h1>
+                <p class="Item">
+                    You can add your own methods to the jQuery object by adding them to <code>jQuery.fn</code>:</p>
+                <div class="Item CodeBox ShrinkWrap Invokable" data-animation="slide">
+                    <pre class="brush:js">
+jQuery.fn.double = function() { 
+    this.append(this.html());
+    return this;
+};
+var p = $('#slide30 p.Item:first');
+p.double();</pre>
+                </div>
+                <p class="Item">
+                    These methods are called on jQuery objects, so the <code>this</code> keyword will
+                    refer to the jQuery object it was called on.</p>
+                <p class="Item">
+                    Thus, I can write <code>this.html()</code> to get the HTML source of the object
+                    that the <code>double()</code> method was called on.</p>
+                <p class="Item">
+                    In order to allow method chaining, plugin methods should end with <code>return this</code>;
+                    this allows you to call other methods after calling the plugin.<br />
+                    Obviously, if you create a plugin that returns information, it should not <code>return
+                        this</code>; it should return whatever information it's supposed to. (Like an
+                    informative method)
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Existing Plugins</h1>
+                <p class="Item">
+                    jQuery also has a wide ecosystem of free plugins.<br />
+                    Some of the more popular ones include:
+                </p>
+                <ul>
+                    <li class="Item" data-animation="drop">jQuery UI</li>
+                    <li class="Item" data-animation="drop">jQuery Validate</li>
+                </ul>
+            </div>
+            <div class="Slide">
+                <div class="SectionHeader" style="margin-top: -1em;">Additional Resources</div>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Documentation</h1>
+                <p class="Item">
+                    <a target="_blank" href="http://API.jQuery.com">http://API.jQuery.com</a>
+                </p>
+                <p class="Item">
+                    Always check the documentation!<br />
+                    jQuery's documentation is very thorough and understandable, and has lots of examples.
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Firebug</h1>
+                <p class="Item">
+                    <a href="http://getfirebug.com" target="_blank">http://GetFirebug.com</a>
+                </p>
+                <img class="Item" data-animation="Puff" src="Screenshots/Firebug-Inspector.png" alt="Firebug Inspector" />
+                <img class="Item" data-animation="Puff" src="Screenshots/Firebug-Console.png" alt="Firebug Console" />
+                <!--Doesn't fit-->
+                <!--<img class="Item" data-animation="Puff" src="Screenshots/Firebug-Debugger.png" />-->
+            </div>
+            <div class="Slide">
+                <h1>
+                    jsFiddle</h1>
+                <p class="Item">
+                    <a href="http://jsfiddle.net" target="_blank">http://jsFiddle.net</a>
+                </p>
+                <p class="Item">
+                    jsFiddle is an HTML sandbox which allows you to quickly try out HTML, CSS, and Javascript
+                    code without creating files on your hard disk.
+                </p>
+                <p class="Item">
+                    You can type arbitrary code (with syntax highlighting) and execute it on the fly.
+                    You can also save your code to a permanent URL so that you can come back to it later
+                    or share it with someone else.</p>
+                <p class="Item">
+                    <a href="http://jsfiddle.net/SLaks/awvJa/" target="_blank">http://jsfiddle.net/SLaks/awvJa/</a>
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    Visual Studio</h1>
+                <p class="Item">
+                    Visual Studio is a great all-around development tool.
+                    <br />
+                    Using a <code>vsdoc</code> file, you can even get full IntelliSense for jQuery.
+                </p>
+                <img class="Item" data-animation="Puff" src="Screenshots/VisualStudio-jQuery.png"
+                    alt="Visual Studio jQuery IntelliSense" />
+                <p class="Item">
+                    Ordinarily, Visual Studio Professional costs $800, but it's available for free to
+                    students through Microsoft's DreamSpark program.<br />
+                    Just go to <a href="http://DreamSpark.com" target="_blank">http://DreamSpark.com</a>
+                    and follow the instructions to verify that you're a student.
+                </p>
+            </div>
+            <div class="Slide">
+                <h1>
+                    StackOverflow</h1>
+                <p class="Item">
+                    <a href="http://StackOverflow.com" target="_blank">http://StackOverflow.com</a>
+                </p>
+                <p class="Item">
+                    StackOverflow is the world's largest online developer community. You can ask programming
+                    related questions there and (typically) get an answer within minutes.<br />
+                    Unlike ExpertsExchange, it's completely free.
+                </p>
+                <a class="Item" data-animation="clip" href="http://stackoverflow.com/users/34397/slaks"
+                    target="_blank">
+                    <img id="soFlair" src="" alt="SLaks - StackOverflow" /></a>
+
+                <script type="text/javascript">
+                    setTimeout(function () {
+                        document.getElementById('soFlair').src = "http://stackoverflow.com/users/flair/34397.png";
+                    }, 500);    //Don't block other things from loading
+                </script>
+
+            </div>
+            <div class="Slide">
+                <h1>
+                    Credits</h1>
+                <ul>
+                    <li class="Item" data-animation="drop"><b>The jQuery Team</b>
+                        <div class="Item">For producing a wonderful library</div>
+                    </li>
+                    <li class="Item" data-animation="drop"><b>GitHub</b>
+                        <div class="Item">For hosting this project</div>
+                    </li>
+                    <li class="Item" data-animation="drop"><b>The World Wide Web Consortium</b>
+                        <div class="Item">For designing CSS3, with which this presentation was created</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="Slide">
+                <div class="SectionHeader Item" style="font-size: 210px" data-animation="fade">Questions?</div>
+            </div>
+            <div class="Slide">
+                <!--The vertical centering assumes a height of one line-->
+                <div class="SectionHeader" style="margin-top: -1em;">Thank you
+                    <br />
+                    for coming</div>
+            </div>
+        </div>
+        <div class="Clock"></div>
+
+        <script type="text/javascript">
+            //http://blog.slaks.net/2011/09/xregexp-breaks-jquery-animations.html
+            if (XRegExp) {
+                var xExec = RegExp.prototype.exec;
+                RegExp.prototype.exec = function (str) {
+                    if (!str.slice)
+                        str = String(str);
+                    return xExec.call(this, str);
+                };
+            }
+
+            $('.AutoRun pre, pre.AutoRun').each(function () {
+                try {
+                    eval($(this).text());
+                } catch (ex) {
+                    alert(ex + "\nin autorun code \n\n" + $(this).text());
+                }
+            });
+
+            $('.Invokable')
+                .append(function (index, html) {
+                    var code = $(this).find('pre').text();
+                    try {
+                        var func = new Function(code);
+                    } catch (ex) {
+                        alert(ex + "\nin invokable code \n\n" + code);
+                        return; //Don't make a button
+                    }
+                    return $('<button class="Invoker" title="Execute">&#9654;</button>')
+                            .click(func);
+                });
+
+            Presentation.animations.quickgallery = {
+                show: function (item, callback) {
+                    //Unshown items should still affect layout
+                    item.find('.GalleryItem').show().css('opacity', 0).attr('unshown', true);
+                    item.show();    //The Presentation framework will always hide the root item
+
+                    var timer = setInterval(function () {
+                        var next = item.find('.GalleryItem[unshown]:first').removeAttr('unshown');  //:hidden skips opacity: 0
+                        if (next.length)
+                            next.fadeTo(1000, 1);
+                        else {
+                            clearInterval(timer);
+                            setTimeout(callback, 500);  //Wait for the last animation to finish
+                        }
+                    }, 200);
+                },
+                hide: function (item, callback) {
+                    item.fadeOut(400, callback);
+                }
+            };
+
+            var p = $('.Presentation').presentation();
+
+            if (p.currentSlide.index === 0)
+                $('.Presentation').hide().delay(500).fadeIn(1000);
+
+            SyntaxHighlighter.defaults.toolbar = false;
+            SyntaxHighlighter.defaults['quick-code'] = false;
+            SyntaxHighlighter.all();
+
+            String.prototype.padLeft = function (length, chr) {
+                if (this.length >= length)
+                    return this;
+                return new Array(length - this.length + 1).join(chr) + this;
+            };
+            var clock = $('.Clock');
+            function updateClock() {
+                var time = new Date;
+                clock.text(((time.getHours() % 12) || 12).toString() + ":"
+                         + time.getMinutes().toString().padLeft(2, '0')
+                         + (time.getHours() < 12 ? " AM" : " PM"));
+            }
+            updateClock();
+            setInterval(updateClock, 60 * 1000);
+        </script>
+
+    </body>
+
+</html>
