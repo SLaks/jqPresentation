@@ -15,6 +15,16 @@ Presentation.Slide = function (parent, index, container) {
 	this.items.after('<div style="clear: both"> </div>'); //Fix layout issue
 	this.title = this.container.attr("title") || this.container.find(":header:first").text();
 
+	var self = this;
+	this.container.click(function (e) {
+		if (e.target !== this)
+			return; //Ignore clicks on items in the slides
+		if (self.parent.currentSlide === self)
+			self.moveBy(+1);
+		else
+			self.parent.slideMoveTo(self.index);
+	});
+
 	this.clear();
 };
 Presentation.Slide.prototype = {
