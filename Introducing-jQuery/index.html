@@ -32,6 +32,7 @@
                 position: absolute;
                 top: 0;
                 right: 0;
+                background: #BFC1DE; /* Pre-blended color for IE */
                 background: rgba(255,255,255, .75);
                 border-bottom: solid 1px black;
                 border-left: solid 1px black;
@@ -91,6 +92,7 @@
                 background: #ededed -webkit-gradient(linear, left top, left bottom, from(#fff), to(rgba(255,255,255,0)));
                 background: #ededed -moz-linear-gradient(top,  #fff,  rgba(255,255,255,0));
                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed')";
                 padding: 0 3px 2px 5px;
                 position: absolute;
                 right: 10px;
@@ -107,11 +109,13 @@
             .Invokable .Invoker:hover {
                 background-color: #cbcbcb;
                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc')";
             }
             .Invokable .Invoker:active {
                 background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
                 background: -moz-linear-gradient(top,  #ededed,  #fff);
                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff')";
             }
             
             .CodeBox > code, .CodeBox > pre {
@@ -128,6 +132,7 @@
                 color: purple !important;
             }
             .syntaxhighlighter .line.alt1 {
+                background-color: transparent !important; /* IE doesn't support rgba */
                 background-color: rgba(0,0,0, .02) !important;
             }
             .syntaxhighlighter .line.alt2 {
@@ -1228,8 +1233,15 @@ p.double();</pre>
         <div class="Clock"></div>
 
         <script type="text/javascript">
-            if ($.browser.msie)
-                alert("Unlike jQuery, this presentation does not support Internet Explorer.\nProceed at your own risk.");
+            //http://blog.slaks.net/2011/09/xregexp-breaks-jquery-animations.html
+            if (XRegExp) {
+                var xExec = RegExp.prototype.exec;
+                RegExp.prototype.exec = function (str) {
+                    if (!str.slice)
+                        str = String(str);
+                    return xExec.call(this, str);
+                };
+            }
 
             $('.AutoRun pre, pre.AutoRun').each(function () {
                 try {
