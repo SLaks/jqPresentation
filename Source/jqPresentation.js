@@ -173,7 +173,7 @@ function Presentation(host) {
 
 	$(document).keydown(function (e) {
 		switch (e.keyCode) {
-			//	//Page Up & Page Down: Move slides                                                                                                                                     
+			//	//Page Up & Page Down: Move slides                                                                                                                                        
 			case 33: self.slideMoveBy(-1); return false;
 			case 34: self.slideMoveBy(+1); return false;
 
@@ -263,11 +263,14 @@ Presentation.prototype = {
 
 		console && console.log("Moving from " + location.hash + " to #" + hash);
 
+		var oldX = $(window).scrollLeft();
 		//Only create a new history entry when switching slides.
 		if (this.parseHash().slide === this.currentSlide.index)
 			location.replace("#" + hash);
 		else
 			location.hash = hash;
+
+		$(window).scrollLeft(oldX); //Suppress any scrolling that resulted from the hash navigation
 	},
 
 
