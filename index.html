@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>jqPresentation</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href='favicon.ico' rel='shortcut icon' />
+        <link href="Source/CSS/jqPresentation.css" rel="stylesheet" type="text/css" />
+        <link href="Source/CSS/jqPresentation.Blue.css" rel="stylesheet" type="text/css" />
+        <link href="Demos/SyntaxHighlighter/shCore.Blue.css" rel="stylesheet" type="text/css" />
+
+        <script src="Dependencies/jquery-1.6.3.js" type="text/javascript"></script>
+
+        <script src="Dependencies/jquery-ui-1.8.16.effects.min.js" type="text/javascript"></script>
+
+        <script src="Dependencies/jquery.mousewheel.js" type="text/javascript"></script>
+
+        <script src="Dependencies/jquery.ba-hashchange.js" type="text/javascript"></script>
+
+        <script src="Source/jqPresentation.js" type="text/javascript"></script>
+
+        <script src="Demos/SyntaxHighlighter/shCore.js" type="text/javascript"></script>
+
+        <script src="Demos/SyntaxHighlighter/shBrushJScript.js" type="text/javascript"></script>
+
+        <script src="Demos/SyntaxHighlighter/shBrushXml.js" type="text/javascript"></script>
+
+        <style type="text/css">
+            .Corner {
+                position: absolute;
+                left: 10px;
+                bottom: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="Presentation">
+            <section class="Slide">
+                <h1>
+                    jqPresentation</h1>
+                <p>
+                    jqPresentation is a jQuery-based presentation framework.</p>
+                <p class="Item">
+                    Using jqPresentation, you can create PowerPoint-style presentations with text, images,
+                    and animation.
+                </p>
+                <p class="Item" data-animation="Puff">
+                    You can write your presentation in standards-compliant and semantic HTML5, then
+                    call <code>$('.Presentation').presentation()</code> and let me do the rest.
+                </p>
+                <p class="Item" data-animation="Explode">
+                    It's great for presentations about web development, since you can include interactive
+                    Javascript features right in the presentation.
+                </p>
+                <aside class="Corner">
+                    <em>(Click to advance, or use arrow keys)</em>
+                </aside>
+            </section>
+            <section class="Slide" id="Features">
+                <h1>
+                    Features</h1>
+                <ul>
+                    <li class="Item" data-animation="drop">Uses semantic, standards-compliant HTML</li>
+                    <li class="Item" data-animation="drop">Extensible animation engine, including jQuery
+                        UI effects</li>
+                    <li class="Item" data-animation="drop">Tracks current position to return to where you
+                        were up to after following links (<a href="OtherPage.html">demo</a>)</li>
+                    <li class="Item" data-animation="drop">Uses hashes to make the browser's Back button
+                        navigate by slides</li>
+                    <li class="Item" data-animation="drop">Automatically uses slide IDs to make friendly
+                        slide links, if present</li>
+                </ul>
+            </section>
+        </div>
+
+        <script type="text/javascript">
+            //http://blog.slaks.net/2011/09/xregexp-breaks-jquery-animations.html
+            if (XRegExp) {
+                var xExec = RegExp.prototype.exec;
+                RegExp.prototype.exec = function (str) {
+                    if (!str.slice)
+                        str = String(str);
+                    return xExec.call(this, str);
+                };
+            }
+
+            var p = $('.Presentation').presentation();
+
+            SyntaxHighlighter.defaults.toolbar = false;
+            SyntaxHighlighter.defaults['quick-code'] = false;
+            SyntaxHighlighter.all();
+        </script>
+
+    </body>
+
+</html>
