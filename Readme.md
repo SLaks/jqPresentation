@@ -1,6 +1,6 @@
 #jqPresentation
 
-jqPresentation is a jQuery plugin that creates Powerpoint-style slideshows from web pages.
+jqPresentation is a jQuery plugin that creates PowerPoint-style slideshows from web pages.
 
 #Features
  - Reads semantic, standards-compliant HTML
@@ -16,6 +16,4 @@ jqPresentation is a jQuery plugin that creates Powerpoint-style slideshows from 
 ##[Demo](http://jqPresentation.slaks.net/Introducing-jQuery)
 
 #TODO
- - IE support
- - Use titles in hashes for nicer URLs
  - More customization

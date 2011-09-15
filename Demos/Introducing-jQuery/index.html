@@ -9,7 +9,7 @@
         <link href='favicon.ico' rel='shortcut icon' />
         <link href="../../CSS/jqPresentation.css" rel="stylesheet" type="text/css" />
         <link href="../../CSS/jqPresentation.Blue.css" rel="stylesheet" type="text/css" />
-        <link href="../SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" type="text/css" />
+        <link href="../SyntaxHighlighter/shCore.Blue.css" rel="stylesheet" type="text/css" />
 
         <script src="../../Dependencies/jquery-1.6.3.js" type="text/javascript"></script>
 
@@ -44,12 +44,6 @@
              * CodeBox styles 
              ************************************************/
             
-            .syntaxhighlighter table {
-                margin: 0px 0px 1px !important; /* Fixes vertical scrollbar in Webkit */
-            }
-            .syntaxhighlighter table td.code {
-                width: auto !important;
-            }
             .Slide button {
                 clear: both;
                 font-size: large;
@@ -59,10 +53,6 @@
             .ShrinkWrap {
                 float: left;
                 clear: both;
-            }
-            .syntaxhighlighter {
-                background-color: transparent !important;
-                margin: 0 !important;
             }
             .CodeBox {
                 border: 1px solid #88F;
@@ -122,25 +112,6 @@
                 padding: 0 1em;
             }
             
-            .syntaxhighlighter .gutter .line {
-                border-right: 2px solid #88f !important;
-            }
-            .syntaxhighlighter .gutter {
-                color: #333 !important;
-            }
-            .syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
-                color: purple !important;
-            }
-            .syntaxhighlighter .line.alt1 {
-                background-color: transparent !important; /* IE doesn't support rgba */
-                background-color: rgba(0,0,0, .02) !important;
-            }
-            .syntaxhighlighter .line.alt2 {
-                background-color: transparent !important;
-            }
-            .syntaxhighlighter.nogutter td.code .container textarea, .Slide .syntaxhighlighter.nogutter td.code .line {
-                padding-left: 1em !important;
-            }
             .CodeBox.ButtonPadded .syntaxhighlighter .code .line {
                 padding-right: 40px !important; /* This padding includes line highlights */
             }
