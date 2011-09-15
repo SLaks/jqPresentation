@@ -20,13 +20,13 @@ html, body {
 	position: absolute;
 	overflow: hidden;
 }
-.PresentationInner > div.Slide {
+.PresentationInner > .Slide {
 	float: left;
 	position: relative;
 	padding: 10px;
 	overflow: hidden;
 }
-.PresentationInner > div.Slide .SlideNumber {
+.PresentationInner > .Slide .SlideNumber {
 	position: absolute;
 	bottom: 10px;
 	right: 10px;
@@ -37,7 +37,7 @@ html, body {
 /* In order for complicated animations to work
  * correctly, items must be shrink-wrapped.
  */
-.PresentationInner > div.Slide .Item {
+.PresentationInner > .Slide .Item {
 	float: left;
 	clear: both;
 }
