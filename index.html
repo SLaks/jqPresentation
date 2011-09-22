@@ -33,6 +33,15 @@
                 left: 10px;
                 bottom: 10px;
             }
+            kbd {
+                background: none repeat scroll 0 0 #EEEEEE;
+                border-color: #CCC #AAA #888 #BBB;
+                border-style: solid;
+                border-width: 1px 3px 3px 1px;
+                color: black;
+                padding: 2px 4px;
+                white-space: nowrap;
+            }
         </style>
     </head>
 
@@ -73,6 +82,63 @@
                     <li class="Item" data-animation="drop">Automatically uses slide IDs to make friendly
                         slide links, if present</li>
                 </ul>
+            </section>
+            <section class="Slide" id="Controls">
+                <h1>
+                    Controls</h1>
+                <ul>
+                    <li class="Item" data-animation="drop">Move forwards one item: <kbd>&rarr;</kbd>, <kbd>
+                        &darr;</kbd>, <kbd title="space bar">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            &nbsp; &nbsp; </kbd></li>
+                    <li class="Item" data-animation="drop">Move backwards one item: <kbd>&larr;</kbd>, <kbd>
+                        &uarr;</kbd> </li>
+                    <li class="Item" data-animation="drop">Move forwards one slide: <kbd>Page Down</kbd>
+                    </li>
+                    <li class="Item" data-animation="drop">Move backwards one slide: <kbd>Page Up</kbd>
+                    </li>
+                    <li class="Item" data-animation="drop">Move to beginning of presentation: <kbd>Home</kbd>
+                    </li>
+                    <li class="Item" data-animation="drop">Move to end of presentation: <kbd>End</kbd>
+                    </li>
+                </ul>
+                <p class="Item">
+                    Clicking a blank area of the current slide will advance one item.<br />
+                    Clicking an adjacent slide will move to that slide.
+                </p>
+                <p class="Item">
+                    If the jQuery <a href="https://github.com/brandonaaron/jquery-mousewheel">mousewheel
+                        plugin</a> is installed, the scroll wheel will move back and forth one item
+                    at a time.
+                </p>
+            </section>
+            <section class="Slide" id="Instructions">
+                <h1>
+                    Instructions</h1>
+                <div class="ShrinkWrap CodeBox">
+                    <pre class="brush: html">
+&lt;article class=&quot;Presentation&quot;&gt;
+    &lt;section class=&quot;Slide&quot;&gt;
+        &lt;h1&gt;Slide Title&lt;/h1&gt;
+        &lt;p class=&quot;Item&quot;&gt;
+            This element will slide down when you click.
+        &lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section class=&quot;Slide&quot;&gt;
+        ...
+    &lt;/section&gt;
+&lt;/article&gt;
+</pre>
+                </div>
+                <div class="ShrinkWrap CodeBox">
+                    <pre class="brush: js">$('.Presentation').presentation();</pre>
+                </div>
+                <p>
+                    For more information, see the <a href="https://github.com/SLaks/jqPresentation/blob/master/Readme.md">readme</a>.</p>
+            </section>
+            <section class="Slide" id="Download">
+                <h1>
+                    Download</h1>
+                <a href="https://github.com/SLaks/jqPresentation/zipball/master">Source code</a>
             </section>
         </div>
 
