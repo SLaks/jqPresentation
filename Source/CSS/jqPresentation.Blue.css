@@ -1,9 +1,13 @@
 ﻿html, body {
 	font-family: "Cambria" , serif;
 	background-color: #000A7F;
+	background-image: -moz-linear-gradient(top, #000A7F, #000A53);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #000A7F),color-stop(1, #000A53));
+	background-image: -webkit-linear-gradient(#000A7F, #000A53);
+	background-image: linear-gradient(top, #000A7F, #000A53);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#000A7F', EndColorStr='#000A53');
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#000A7F', EndColorStr='#000A53')";
 	font-size: 16px;
-	background-image: linear-gradient(top, #000A7F, #000A53);
 }
 .PresentationInner > .Slide {
 	background: -webkit-gradient(linear, left bottom, left top, from(#bbd), to(#fff));
