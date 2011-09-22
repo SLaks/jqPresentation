@@ -6,9 +6,9 @@
         <!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <link href='favicon.ico' rel='shortcut icon' />
-        <link href="../../CSS/jqPresentation.css" rel="stylesheet" type="text/css" />
-        <link href="../../CSS/jqPresentation.Blue.css" rel="stylesheet" type="text/css" />
+        <link href='../../favicon.ico' rel='shortcut icon' />
+        <link href="../../Source/CSS/jqPresentation.css" rel="stylesheet" type="text/css" />
+        <link href="../../Source/CSS/jqPresentation.Blue.css" rel="stylesheet" type="text/css" />
         <link href="../SyntaxHighlighter/shCore.Blue.css" rel="stylesheet" type="text/css" />
 
         <script src="../../Dependencies/jquery-1.6.3.js" type="text/javascript"></script>
@@ -54,20 +54,6 @@
                 float: left;
                 clear: both;
             }
-            .CodeBox {
-                border: 1px solid #88F;
-                background-color: rgba(128,128,255, .05) !important;
-                position: relative;
-                font-size: 25px;
-                padding: 8px 0;
-                margin: 2px 15px 1em 0;
-                -moz-border-radius: 12px;
-                -webkit-border-radius: 12px;
-                border-radius: 12px;
-            }
-            .Item > .CodeBox {
-                margin-bottom: 0; /* Prevent double-margin */
-            }
             .Invokable .Invoker {
                 border-radius: 20px;
                 -moz-border-radius: 20px;
@@ -107,15 +93,7 @@
                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
                 -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff')";
             }
-            
-            .CodeBox > code, .CodeBox > pre {
-                padding: 0 1em;
-            }
-            
-            .CodeBox.ButtonPadded .syntaxhighlighter .code .line {
-                padding-right: 40px !important; /* This padding includes line highlights */
-            }
-            
+                        
             /************************************************
              * Gallery table 
              ************************************************/

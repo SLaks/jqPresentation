@@ -9,7 +9,7 @@
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#000A7F', EndColorStr='#000A53')";
 	font-size: 16px;
 }
-.PresentationInner > div.Slide {
+.PresentationInner > .Slide {
 	background: -webkit-gradient(linear, left bottom, left top, from(#bbd), to(#fff));
 	background-color: #eee;
 	background: -moz-linear-gradient(bottom, #bbd, #fff);
@@ -25,7 +25,7 @@
 	-webkit-box-shadow: 0px 0px 14px #88f;
 	box-shadow: 0px 0px 18px #fff;
 }
-.PresentationInner > div.Slide h1 {
+.PresentationInner > .Slide h1 {
 	font-size: 40px;
 	height: 47px;
 	text-align: center;
@@ -53,9 +53,6 @@ p, .Item {
 .Slide ul {
 	margin: 0;
 }
-.Clear {
-	clear: both;
-}
 
 a {
 	color: blue !important;
@@ -76,4 +73,25 @@ a {
 	top: 45%;
 	font-size: 120px;
 	text-shadow: 1px 1px 4px #666;
+}
+.CodeBox {
+	border: 1px solid #88F;
+	background-color: rgba(128,128,255, .05) !important;
+	position: relative;
+	font-size: 25px;
+	padding: 8px 0;
+	margin: 2px 15px 1em 0;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+}
+.Item > .CodeBox {
+	margin-bottom: 0; /* Prevent double-margin */
+}
+.CodeBox > code, .CodeBox > pre {
+	padding: 0 1em;
+}
+
+.CodeBox.ButtonPadded .syntaxhighlighter .code .line {
+	padding-right: 40px !important; /* This padding includes line highlights */
 }

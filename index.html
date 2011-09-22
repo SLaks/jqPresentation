@@ -1,29 +1,165 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
     <head>
-        <meta charset='utf-8'>
-        <title>jqPresentation Library</title>
-        <link rel="shortcut icon" href="favicon.ico">
+        <title>jqPresentation</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href='favicon.ico' rel='shortcut icon' />
+        <link href="Source/CSS/jqPresentation.css" rel="stylesheet" type="text/css" />
+        <link href="Source/CSS/jqPresentation.Blue.css" rel="stylesheet" type="text/css" />
+        <link href="Demos/SyntaxHighlighter/shCore.Blue.css" rel="stylesheet" type="text/css" />
+
+        <script src="Dependencies/jquery-1.6.3.js" type="text/javascript"></script>
+
+        <script src="Dependencies/jquery-ui-1.8.16.effects.min.js" type="text/javascript"></script>
+
+        <script src="Dependencies/jquery.mousewheel.js" type="text/javascript"></script>
+
+        <script src="Dependencies/jquery.ba-hashchange.js" type="text/javascript"></script>
+
+        <script src="Source/jqPresentation.js" type="text/javascript"></script>
+
+        <script src="Demos/SyntaxHighlighter/shCore.js" type="text/javascript"></script>
+
+        <script src="Demos/SyntaxHighlighter/shBrushJScript.js" type="text/javascript"></script>
+
+        <script src="Demos/SyntaxHighlighter/shBrushXml.js" type="text/javascript"></script>
+
         <style type="text/css">
-            * {
-                margin: 0;
-                padding: 0;
+            .Corner {
+                position: absolute;
+                left: 10px;
+                bottom: 10px;
             }
-            body {
-                margin-top: 100px;
-                font-family: "Calibri" , Verdana, Arial, sans-serif;
-                text-align: center;
-            }
-            a {
-                font-size: 16pt;
+            kbd {
+                background: none repeat scroll 0 0 #EEEEEE;
+                border-color: #CCC #AAA #888 #BBB;
+                border-style: solid;
+                border-width: 1px 3px 3px 1px;
+                color: black;
+                padding: 2px 4px;
+                white-space: nowrap;
             }
         </style>
     </head>
 
     <body>
-        <a href="Demos/Introducing-jQuery/">Demo</a><br />
-        More info coming soon...
+        <div class="Presentation">
+            <section class="Slide">
+                <h1>
+                    jqPresentation</h1>
+                <p>
+                    jqPresentation is a jQuery-based presentation framework.</p>
+                <p class="Item">
+                    Using jqPresentation, you can create PowerPoint-style presentations with text, images,
+                    and animation.
+                </p>
+                <p class="Item" data-animation="Puff">
+                    You can write your presentation in standards-compliant and semantic HTML5, then
+                    call <code>$('.Presentation').presentation()</code> and let me do the rest.
+                </p>
+                <p class="Item" data-animation="Explode">
+                    It's great for presentations about web development, since you can include interactive
+                    Javascript features right in the presentation.
+                </p>
+                <aside class="Corner">
+                    <em>(Click to advance, or use arrow keys)</em>
+                </aside>
+            </section>
+            <section class="Slide" id="Features">
+                <h1>
+                    Features</h1>
+                <ul>
+                    <li class="Item" data-animation="drop">Uses semantic, standards-compliant HTML</li>
+                    <li class="Item" data-animation="drop">Extensible animation engine, including jQuery
+                        UI effects</li>
+                    <li class="Item" data-animation="drop">Tracks current position to return to where you
+                        were up to after following links (<a href="OtherPage.html">demo</a>)</li>
+                    <li class="Item" data-animation="drop">Uses hashes to make the browser's Back button
+                        navigate by slides</li>
+                    <li class="Item" data-animation="drop">Automatically uses slide IDs to make friendly
+                        slide links, if present</li>
+                </ul>
+            </section>
+            <section class="Slide" id="Controls">
+                <h1>
+                    Controls</h1>
+                <ul>
+                    <li class="Item" data-animation="drop">Move forwards one item: <kbd>&rarr;</kbd>, <kbd>
+                        &darr;</kbd>, <kbd title="space bar">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            &nbsp; &nbsp; </kbd></li>
+                    <li class="Item" data-animation="drop">Move backwards one item: <kbd>&larr;</kbd>, <kbd>
+                        &uarr;</kbd> </li>
+                    <li class="Item" data-animation="drop">Move forwards one slide: <kbd>Page Down</kbd>
+                    </li>
+                    <li class="Item" data-animation="drop">Move backwards one slide: <kbd>Page Up</kbd>
+                    </li>
+                    <li class="Item" data-animation="drop">Move to beginning of presentation: <kbd>Home</kbd>
+                    </li>
+                    <li class="Item" data-animation="drop">Move to end of presentation: <kbd>End</kbd>
+                    </li>
+                </ul>
+                <p class="Item">
+                    Clicking a blank area of the current slide will advance one item.<br />
+                    Clicking an adjacent slide will move to that slide.
+                </p>
+                <p class="Item">
+                    If the jQuery <a href="https://github.com/brandonaaron/jquery-mousewheel">mousewheel
+                        plugin</a> is installed, the scroll wheel will move back and forth one item
+                    at a time.
+                </p>
+            </section>
+            <section class="Slide" id="Instructions">
+                <h1>
+                    Instructions</h1>
+                <div class="ShrinkWrap CodeBox">
+                    <pre class="brush: html">
+&lt;article class=&quot;Presentation&quot;&gt;
+    &lt;section class=&quot;Slide&quot;&gt;
+        &lt;h1&gt;Slide Title&lt;/h1&gt;
+        &lt;p class=&quot;Item&quot;&gt;
+            This element will slide down when you click.
+        &lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section class=&quot;Slide&quot;&gt;
+        ...
+    &lt;/section&gt;
+&lt;/article&gt;
+</pre>
+                </div>
+                <div class="ShrinkWrap CodeBox">
+                    <pre class="brush: js">$('.Presentation').presentation();</pre>
+                </div>
+                <p>
+                    For more information, see the <a href="https://github.com/SLaks/jqPresentation/blob/master/Readme.md">readme</a>.</p>
+            </section>
+            <section class="Slide" id="Download">
+                <h1>
+                    Download</h1>
+                <a href="https://github.com/SLaks/jqPresentation/zipball/master">Source code</a>
+            </section>
+        </div>
+
+        <script type="text/javascript">
+            //http://blog.slaks.net/2011/09/xregexp-breaks-jquery-animations.html
+            if (XRegExp) {
+                var xExec = RegExp.prototype.exec;
+                RegExp.prototype.exec = function (str) {
+                    if (!str.slice)
+                        str = String(str);
+                    return xExec.call(this, str);
+                };
+            }
+
+            var p = $('.Presentation').presentation();
+
+            SyntaxHighlighter.defaults.toolbar = false;
+            SyntaxHighlighter.defaults['quick-code'] = false;
+            SyntaxHighlighter.all();
+        </script>
+
     </body>
 
 </html>
