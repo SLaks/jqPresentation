@@ -183,10 +183,12 @@ function Presentation(host) {
 
 	$(document).keydown(function (e) {
 		switch (e.keyCode) {
-			//	//Page Up & Page Down: Move slides                                                                                                                                         
+			//	//Page Up & Page Down: Move slides                                                                                                                                           
 			case 33: self.slideMoveBy(-1); return false;
 			case 34: self.slideMoveBy(+1); return false;
 
+				//Space: Move forwards
+			case 32: self.itemMoveBy(+1); return false;
 				//Arrows keys: Move items
 			case 37: case 38: self.itemMoveBy(-1); return false;
 			case 39: case 40: self.itemMoveBy(+1); return false;
